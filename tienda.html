@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogdeCafe</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">   
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<link rel="stylesheet" href="css/styles.css">  
+</head>
+<body>
+<header class="header">
+
+    <div class="contenedor">
+        <div class="barra">
+        <a class="logo" href="index.html">
+            <h1 class="logo__nombre no-margin centrar-texto">Blog<span class="logo__bold">DeCafé</h1>
+        </a>
+        <nav class="navegacion">
+            <a href="nosotros.html" class="navegacion__enlace">Nosotros</a>
+            <a href="cursos.html" class="navegacion__enlace">Cursos</a>
+            <a href="contacto.html" class="navegacion__enlace">Contacto</a>
+            <a href="tienda.html" class="navegacion__enlace">Tienda</a>
+            <div class="carrito">
+            <a href="carrito.html"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="6" cy="19" r="2" />
+                <circle cx="17" cy="19" r="2" />
+                <path d="M17 17h-11v-14h-2" />
+                <path d="M6 5l14 1l-1 7h-13" />
+              </svg></a>
+            </div>
+        </nav>
+
+        </div>
+    </div>
+    <div class="header__texto">
+        <h2 class="no-margin">Nuestra tienda</h2>
+        <p class="no-margin">Comprá los productos recomendados por nuestros especialistas</p>
+    </div>
+</header>
+    <div>
+        <main>
+
+            <div class="producto">
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    <img class="imgprod" loading="lazy" src="img/cafe1.png" alt="imag">
+                </div>
+                <div class="col-4 col-md-3">
+                    <h2>Café Juan Valdéz Premium (colombiano) x 250grs</h2>
+                </div>
+                <div class="col-4 col-md-3">
+                    <h2>$4000</h2>
+                </div>
+                <!-- acá va botón incremental -->
+                <div class="col-4 col-md-3 option">
+                    <select name="" id="JuanValdez" required>
+                        <option value="" disabled selected>cantidad</option>
+                        <option value="">1</option>
+                        <option value="">2</option>
+                        <option value="">3</option>
+                        <option value="">4</option>
+                    </select>
+                    <button class="boton boton--terciario">Agregar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="producto">
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <img class="imgprod" loading="lazy" src="img/cafe2.png" alt="imag">
+                    </div>
+                    <div class="col-4 col-md-3">
+                        <h2>Café Venita (venezolano) x 250grs</h2>
+                    </div>
+                    <div class="col-4 col-md-3">
+                        <h2>$4200</h2>
+                    </div>
+                    <!-- acá va botón incremental -->
+                    <div class="col-4 col-md-3 option">
+                        <select name="cant" id="Venita" required>
+                            <option value="" disabled selected>cantidad</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <button class="boton boton--terciario">Agregar</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="producto">
+                    <div class="row">
+                        <div class="col-12 col-md-3">
+                            <img class="imgprod" loading="lazy" src="img/cafe1.png" alt="imagen blog">
+                        </div>
+                        <div class="col-4 col-md-3">
+                            <h2>Café Juan Valdéz Premium x 250grs</h2>
+                        </div>
+                        <div class="col-4 col-md-3">
+                            <h2>$4000</h2>
+                        </div>
+                        <!-- acá va botón incremental -->
+                        <div class="col-4 col-md-3 option">
+                            <select name="cant" id="otro" required>
+                                <option value="" disabled selected>cantidad</option>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                            <button class="boton boton--terciario">Agregar</button>
+                        </div>
+                      </div>
+                    </div>
+
+            
+
+        </main>
+       
+    </div>
+    
+    <footer class="footer">
+        <div class="contenedor">
+            <div class="barra">
+            <a class="logo" href="index.html">
+                <h1 class="logo__nombre no-margin centrar-texto">Blog<span class="logo__bold">DeCafé</h1>
+            </a>
+            <nav class="navegacion">
+                <a href="nosotros.html" class="navegacion__enlace">Nosotros</a>
+                <a href="cursos.html" class="navegacion__enlace">Cursos</a>
+                <a href="contacto.html" class="navegacion__enlace">Contacto</a>
+            </nav>   
+            </div>
+        </div>
+
+    </footer>
+
+    <script src="scripts.js"></script>    
+</body>
+</html>
