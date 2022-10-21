@@ -289,11 +289,18 @@ text-align: center;
 .campo__field--textarea {
     height: 20rem;
 }
+img.imgprod{
+margin: auto;
+}
 
 @media (min-width: 768px) {
 img.imgprod{
     max-height: 20rem;
 }
+}
+div.producto {
+    border: solid 0.1rem;
+    text-align: center;
 }
 .producto h2 {
     font-size: 3rem;
