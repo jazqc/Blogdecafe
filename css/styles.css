@@ -210,6 +210,12 @@ p.widget--tienda__label {
 animation: random 2s infinite;
 text-align: center;
 }
+.widget--curso {
+    border-bottom: 1px solid var(--gris);
+    margin-bottom: 2rem;
+animation: random 2s infinite;
+text-align: center;
+}
 .footer {
     background-color: var(--negro);
     padding: 3rem;
@@ -217,8 +223,8 @@ text-align: center;
 
 @keyframes random {
     /* 50% { background-color: #e1ccad; } 
-    50% { background-color: #ff7c96; } 
-    50% { background-color: #6ffffa; } */
+    /* 50% { background-color: #ff7c96; }  */
+    80% { background-color: #6ffffa; }
     /* 40% { background-color: #bdc6d5; }  */
     80% { background-color: #bf69b1; } 
     }
