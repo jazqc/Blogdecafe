@@ -38,7 +38,7 @@ switch (curso) {
                     else {
                         break
                     }
-                break
+
 
             case "10/01/2023":
                 while (cuposCurso1b > 0)
@@ -62,7 +62,7 @@ switch (curso) {
                     }
                 break
         }
-        break
+
 
     case "2":
         reserva = prompt("seleccione entre 10/11/2022 o 03/01/2023")
@@ -90,7 +90,7 @@ switch (curso) {
                     else {
                         break
                     }
-                break
+   
 
             case "03/01/2023":
                 while (cuposCurso1b > 0)
@@ -114,15 +114,17 @@ switch (curso) {
                     }
                 break
         }
-        break
+
 }
 
 
 
 function inscripcion(cupos,cuposCurso,totalPagar) {
-nombre = prompt("ingrese su nombre")
-apellido = prompt("ingrese su apellido")
-alert("Inscripción realizada con exito")
-console.log("Cantidad de cupos disponibles: " + cuposCurso + " Nombre y apellido de inscripto: "+ apellido, nombre + " cupos reservados: " + cupos +  " El total a pagar es: " + totalPagar)
-return nombre, apellido;
+nombre = prompt("Ingrese su nombre")
+apellido = prompt("Ingrese su apellido")
+alert("Inscripción realizada con exito: " + apellido + "," + nombre + " cupos reservados: " + cupos +  " El total a pagar es: " + totalPagar)
+console.log("Cantidad de cupos disponibles: " + cuposCurso + " Nombre y apellido de inscripto: "+ apellido, nombre + " cupos reservados: " + cupos +  " El total a pagar es: $" + totalPagar)
+return nombre, apellido, totalPagar;
 }
+
+

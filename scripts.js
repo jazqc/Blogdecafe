@@ -56,3 +56,6 @@ console.log(stockJV)
 producto = "Venita"
 console.log(agregar(2))
 console.log(totalCarrito, stockV)
+
+
+//esta función iría en el carrito y los valores también los traería por select
