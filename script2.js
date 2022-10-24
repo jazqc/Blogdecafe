@@ -25,6 +25,7 @@ switch (curso) {
                         cuposCurso1a = cuposCurso1a - cupos
                         inscripcion(cupos,cuposCurso1a,totalCarrito)
                         break
+                        
                     }
                     else if (cupos > cuposCurso1a && cupos > 0) {
                         respuesta = prompt("no disponemos de esa cantidad de cupos, quiere reservar menos lugares?")
@@ -38,7 +39,8 @@ switch (curso) {
                     else {
                         break
                     }
-
+                    break
+                
 
             case "10/01/2023":
                 while (cuposCurso1b > 0)
@@ -61,7 +63,7 @@ switch (curso) {
                         break
                     }
                 break
-        }
+        
 
 
     case "2":
@@ -90,7 +92,8 @@ switch (curso) {
                     else {
                         break
                     }
-   
+                    break
+                
 
             case "03/01/2023":
                 while (cuposCurso1b > 0)
@@ -116,6 +119,7 @@ switch (curso) {
         }
 
 }
+}
 
 
 
@@ -124,7 +128,4 @@ nombre = prompt("Ingrese su nombre")
 apellido = prompt("Ingrese su apellido")
 alert("Inscripción realizada con exito: " + apellido + "," + nombre + " cupos reservados: " + cupos +  " El total a pagar es: " + totalPagar)
 console.log("Cantidad de cupos disponibles: " + cuposCurso + " Nombre y apellido de inscripto: "+ apellido, nombre + " cupos reservados: " + cupos +  " El total a pagar es: $" + totalPagar)
-return nombre, apellido, totalPagar;
 }
-
-
