@@ -6,8 +6,8 @@ let cuposCurso2a = 10
 let cuposCurso2b = 10
 let totalCarrito = 0 // esta variable en realidad está definida en sricpts.js, la definí acá tmb porque separé los js para que no se ejecuten los prompts en el home sino solo al ingresar a la tienda o a los cursos
 let cupos = 0
-let nombre = ""
-let apellido = ""
+let cuposCurso = 0
+
 let inscripto = false
 
 let curso = Number(prompt("seleccione curso 1-Técnicas de extracción de café o curso 2-Recetas de café para principiantes"))
@@ -20,9 +20,8 @@ switch (curso) {
                 cupos = prompt("Cantidad de cupos: ")
                 while (cuposCurso1a > 0 && inscripto == false)
                     if (cupos <= cuposCurso1a && cupos > 0) {
-                        totalCarrito = totalCarrito + (cupos * 2500)
-                        cuposCurso1a = cuposCurso1a - cupos
-                        inscripcion(cupos, cuposCurso1a, totalCarrito)
+                        inscripcion(cupos, cuposCurso1a, totalCarrito,2500)
+                        cuposCurso1a = cuposCurso
                     }
                     else if (cupos > cuposCurso1a && cupos > 0) {
                         respuesta = prompt("no disponemos de esa cantidad de cupos, quiere reservar menos lugares? si/no")
@@ -42,9 +41,8 @@ switch (curso) {
                 cupos = prompt("Cantidad de cupos: ")
                 while (cuposCurso1b > 0 && inscripto == false)
                     if (cupos <= cuposCurso1b && cupos > 0) {
-                        totalCarrito = totalCarrito + (cupos * 2500)
-                        cuposCurso1b = cuposCurso1b - cupos
-                        inscripcion(cupos, cuposCurso1b, totalCarrito)
+                        inscripcion(cupos, cuposCurso1b, totalCarrito,2500)
+                        cuposCurso1b = cuposCurso
                         break
                     }
                     else if (cupos > cuposCurso1b && cupos > 0) {
@@ -71,9 +69,8 @@ switch (curso) {
                 cupos = prompt("Cantidad de cupos: ")
                 while (cuposCurso2a > 0 && inscripto == false)
                     if (cupos <= cuposCurso2a && cupos > 0) {
-                        totalCarrito = totalCarrito + (cupos * 2000)
-                        cuposCurso2a = cuposCurso2a - cupos
-                        inscripcion(cupos, cuposCurso2a, totalCarrito)
+                        inscripcion(cupos, cuposCurso2a, totalCarrito,2000)
+                        cuposCurso2a = cuposCurso
                         break
                     }
                     else if (cupos > cuposCurso2a && cupos > 0) {
@@ -94,9 +91,8 @@ switch (curso) {
                 cupos = prompt("Cantidad de cupos: ")
                 while (cuposCurso2b > 0 && inscripto == false)
                     if (cupos <= cuposCurso2b && cupos > 0) {
-                        totalCarrito = totalCarrito + (cupos * 2000)
-                        cuposCurso2b = cuposCurso2b - cupos
-                        inscripcion(cupos, cuposCurso2b, totalCarrito)
+                        inscripcion(cupos, cuposCurso2b, totalCarrito,2000)
+                        cuposCurso2b = cuposCurso
                         break
                     }
                     else if (cupos > cuposCurso2b && cupos > 0) {
@@ -121,12 +117,17 @@ switch (curso) {
 
 
 
-function inscripcion(cupos, cuposCurso, totalPagar) {
-    nombre = prompt("Ingrese su nombre")
-    apellido = prompt("Ingrese su apellido")
-    alert("Inscripción realizada con exito: " + apellido + "," + nombre + " cupos reservados: " + cupos + " El total a pagar es: " + totalPagar)
+
+function inscripcion(cupos, cuposCurso, totalCarrito, precio) {
+    totalCarrito = totalCarrito + (cupos * precio)
+    cuposCurso = cuposCurso - cupos
+    let nombre = prompt("Ingrese su nombre")
+    let apellido = prompt("Ingrese su apellido")
+    alert("Inscripción realizada con exito: " + apellido + "," + nombre + " cupos reservados: " + cupos + " El total a pagar es: " + totalCarrito)
     alert("Le recomendamos que visite nuestra tienda de productos")
-    console.log("Cantidad de cupos disponibles: " + cuposCurso + " Nombre y apellido de inscripto: " + apellido, nombre + " cupos reservados: " + cupos + " El total a pagar es: $" + totalPagar)
+    console.log("Cantidad de cupos disponibles: " + cuposCurso + " Nombre y apellido de inscripto: " + apellido, nombre + " cupos reservados: " + cupos + " El total a pagar es: $" + totalCarrito)
     inscripto = true
-    return inscripto
+    return inscripto, totalCarrito, cuposCurso
 }
+
+
