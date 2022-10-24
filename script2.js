@@ -6,26 +6,24 @@ let cuposCurso2a = 10
 let cuposCurso2b = 10
 let totalCarrito = 0 // esta variable en realidad está definida en sricpts.js, la definí acá tmb porque separé los js para que no se ejecuten los prompts en el home sino solo al ingresar a la tienda o a los cursos
 let cupos = 0
-let curso = prompt("seleccione curso 1 o curso 2")
 let nombre = ""
 let apellido = ""
+let inscripto = false
 
-
+let curso = Number(prompt("seleccione curso 1 o curso 2"))
 switch (curso) {
-    case "1":
+    case 1: 
         reserva = prompt("seleccione entre 15/11/2022 o 10/01/2023")
         cupos = prompt("cantidad de cupos")
 
         switch (reserva) {
 
             case "15/11/2022":
-                while (cuposCurso1a > 0)
+                while (cuposCurso1a > 0 && inscripto==false)
                     if (cupos <= cuposCurso1a && cupos > 0) {
                         totalCarrito = totalCarrito + (cupos * 2500)
                         cuposCurso1a = cuposCurso1a - cupos
-                        inscripcion(cupos,cuposCurso1a,totalCarrito)
-                        break
-                        
+                        inscripcion(cupos,cuposCurso1a,totalCarrito)               
                     }
                     else if (cupos > cuposCurso1a && cupos > 0) {
                         respuesta = prompt("no disponemos de esa cantidad de cupos, quiere reservar menos lugares?")
@@ -39,8 +37,7 @@ switch (curso) {
                     else {
                         break
                     }
-                    break
-                
+        break;
 
             case "10/01/2023":
                 while (cuposCurso1b > 0)
@@ -62,11 +59,9 @@ switch (curso) {
                     else {
                         break
                     }
-                break
-        
-
-
-    case "2":
+                }  
+            break          
+    case 2:
         reserva = prompt("seleccione entre 10/11/2022 o 03/01/2023")
         cupos = prompt("cantidad de cupos")
 
@@ -92,11 +87,10 @@ switch (curso) {
                     else {
                         break
                     }
-                    break
-                
+            break    
 
             case "03/01/2023":
-                while (cuposCurso1b > 0)
+                while (cuposCurso2b > 0)
                     if (cupos <= cuposCurso2b && cupos > 0) {
                         totalCarrito = totalCarrito + (cupos * 2000)
                         cuposCurso2b = cuposCurso2b - cupos
@@ -115,11 +109,12 @@ switch (curso) {
                     else {
                         break
                     }
-                break
+                    break
         }
+        break
 
 }
-}
+
 
 
 
@@ -128,4 +123,6 @@ nombre = prompt("Ingrese su nombre")
 apellido = prompt("Ingrese su apellido")
 alert("Inscripción realizada con exito: " + apellido + "," + nombre + " cupos reservados: " + cupos +  " El total a pagar es: " + totalPagar)
 console.log("Cantidad de cupos disponibles: " + cuposCurso + " Nombre y apellido de inscripto: "+ apellido, nombre + " cupos reservados: " + cupos +  " El total a pagar es: $" + totalPagar)
+inscripto = true
+return inscripto
 }
