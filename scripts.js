@@ -24,7 +24,7 @@ do {
                 case "a":
                     cupos = prompt("Cantidad de cupos: ")
                     if (cuposCurso1a == 0) {
-                        alert("no quedan cupos")
+                        alert("No quedan cupos en este curso")
                     }
                     else {
                         while (cuposCurso1a > 0)
@@ -50,7 +50,7 @@ do {
                 case "b":
                     cupos = prompt("Cantidad de cupos: ")
                     if (cuposCurso1b == 0) {
-                        alert("no quedan cupos")
+                        alert("No quedan cupos en este curso")
                     }
                     else {
                         while (cuposCurso1b > 0)
@@ -72,8 +72,9 @@ do {
                             else {
                                 break;
                             }
-
                     }
+                    default: alert("Opción inválida")
+                    break;
             }
             break;
         case 2:
@@ -84,7 +85,7 @@ do {
                 case "a":
                     cupos = prompt("Cantidad de cupos: ")
                     if (cuposCurso2a == 0) {
-                        alert("no quedan cupos")
+                        alert("No quedan cupos en este curso")
                     }
                     else {
                         while (cuposCurso2a > 0)
@@ -135,8 +136,10 @@ do {
                             else {
                                 break;
                             }
+                    
                         break;
                     }
+                    default: alert("Opción inválida")
                     break;
             }
 
@@ -144,7 +147,7 @@ do {
         default: alert("Ese curso no existe, le recomendamos que visite nuestra tienda de productos")
             break;
     }
-    respuesta1 = prompt("Le gustaría agregar más cursos?").toLocaleLowerCase()
+    respuesta1 = prompt("Le gustaría inscribirse en más cursos?").toLocaleLowerCase()
 }
 while (respuesta1 == "si")
 
