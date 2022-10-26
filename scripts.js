@@ -159,8 +159,8 @@ function inscripcion(cupos, cuposdisponibles, totalPagar, precio) {
     cuposCurso = cuposdisponibles - cupos
     let nombre = prompt("Ingrese su nombre")
     let apellido = prompt("Ingrese su apellido")
-    alert("Inscripción realizada con exito: " + apellido + "," + nombre + " cupos reservados: " + cupos + " El total a pagar es: " + totalCarrito)
-    console.log("Cantidad de cupos disponibles del curso: " + cuposCurso + " Nombre y apellido de inscripto: " + apellido, nombre + " cupos reservados: " + cupos + " Total Parcial: " + totalParcial + " El total a pagar es: $" + totalCarrito)
+    alert("Inscripción realizada con éxito: " + apellido + "," + nombre + " Cupos reservados: " + cupos + " El total a pagar es: " + totalCarrito)
+    console.log("Cantidad de cupos disponibles del curso: " + cuposCurso + " Nombre y apellido de inscripto: " + apellido, nombre + " Cupos reservados: " + cupos + " Total Parcial: " + totalParcial + " El total a pagar es: $" + totalCarrito)
     cupos = 0
     return totalCarrito, cuposCurso
 }

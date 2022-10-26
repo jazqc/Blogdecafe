@@ -4,4 +4,4 @@ Tiene 2 scripts porque en esta primera entrega estamos trabajando con consola y 
 En el futuro, en un script unificado la variable totalCarrito se comparte para q se pueda ir sumando al total tanto los cursos como los productos al carrito de compras.
 
 scripts.js está vinculado a cursos.html
-scripts.js está vinculado a tienda.html
+scripts2.js está vinculado a tienda.html
