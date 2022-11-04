@@ -187,14 +187,14 @@ class Curso{
     
     const curso1 = new Curso("Técnicas de extracción de café", "Juliana Lopez", "15/11/2022", 2500, 10,[] )
     const curso2 = new Curso("Técnicas de extracción de café", "Juliana Lopez", "10/01/2023",2500,10,[])
-    const curso3 = new Curso("Recetas de café para principiantes", "Felipe Carmona","10/11/2022", 2000, 10,[])
-    const curso4 = new Curso("Recetas de café para principiantes", "Felipe Carmona", "03/01/2023", 2000,10,[]);
+    const curso3 = new Curso("Taller para tostar y moler granos", "Felipe Carmona","10/11/2022", 2000, 10,[])
+    const curso4 = new Curso("Taller para tostar y moler granos", "Felipe Carmona", "03/01/2023", 2000,10,[]);
 
 
 
 
     do {
-            let curso = Number(prompt("seleccione curso 1-Técnicas de extracción de café o curso 2-Recetas de café para principiantes"))
+            let curso = Number(prompt("seleccione curso 1-Técnicas de extracción de café o curso 2-Taller para tostar y moler granos"))
             cuposCurso = 0
             cupos = 0
             switch (curso) {
@@ -336,7 +336,7 @@ class Curso{
             carrito.push(curso);
             cupos = 0;
             alert("Inscripción realizada con éxito")
-            return curso.inscriptos, carrito, totalCarrito   
+            return curso.inscriptos, carrito, totalCarrito
         }
 
 
@@ -344,3 +344,4 @@ class Curso{
 
 
 
+1

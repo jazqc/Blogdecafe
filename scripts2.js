@@ -9,12 +9,13 @@ const carrito = [];
 //*********************TIENDA*****************************
 
 class Producto{
-constructor(nombre, marca, tipo, precio, stock){
+constructor(nombre, marca, tipo, precio, stock,compra){
     this.nombre = nombre;
     this.marca = marca;
     this.tipo = tipo;
     this.precio = parseFloat(precio);
     this.stock = parseFloat(stock);
+    this.compra = parseFloat(compra);
 }
 
 agregar(producto, cantidad) {
@@ -44,12 +45,12 @@ oferta(porcentaje) {
 };
 }
 
-const cafe1 = new Producto("Juan Valdez Premium", "Juan Valdez", "básico", 2500, 20);
-const cafe2 = new Producto("Venita Selezionse Merida", "Venita","100% Arábica", 5500, 5)
-const cafe3 = new Producto("Giulis-Café de finca", "Giulis", "intenso", 4000, 5 )
-const cafetera1 = new Producto("Cafetera Italia", "Bialletti", "Moka", 30000, 2)
-const cafetera2 = new Producto("Cafetera de Embolo", "Bodum", "prensa francesa", 20000,3);
-const molinillo = new Producto("Molinillo", "Peogeot", "estilo antiguo", 15000,2);
+const cafe1 = new Producto("Juan Valdez Premium", "Juan Valdez", "básico", 2500, 20,0);
+const cafe2 = new Producto("Venita Selezionse Merida", "Venita","100% Arábica", 5500, 5,0)
+const cafe3 = new Producto("Giulis-Café de finca", "Giulis", "intenso", 4000, 5,0 )
+const cafetera1 = new Producto("Cafetera Italia", "Bialletti", "Moka", 30000, 2,0)
+const cafetera2 = new Producto("Cafetera de Embolo", "Bodum", "prensa francesa", 20000,3,0);
+const molinillo = new Producto("Molinillo", "Peogeot", "estilo antiguo", 15000,2,0);
 
 
 let respuesta = 1
@@ -85,70 +86,37 @@ while(respuesta==1) {
    }
    respuesta=prompt("Le gustaría agregar otro producto 1-si 2-no")
    if(respuesta==2){
-      alert("El total a pagar es de: $" + totalCarrito)
+      revisarCarrito()    
       }
    }
 
-
-
-
-//*************************************************************
-//*********************CURSOS*****************************
-class Curso{
-    constructor(nombre, profesor, fecha, precio, cupos){
-        this.nombre = nombre;
-        this.profesor = profesor;
-        this.fecha = fecha;
-        this.precio = parseFloat(precio);
-        this.cupos = parseFloat(cupos);
-    }
-    // reducirCupos(cantidad) {
-    //     if (this.cupos>=cantidad &&(this.cupos-cantidad>=0)) {
-    //     this.cupos += -cantidad}
-    //     else if(this.cupos=0){
-    //         alert("No hay cupos en este curso")
-    //     }
-    //     else {
-    //         alert("cupos insuficiente, solo quedan: " + this.cupos + " unidades")
-    //     }
-    //     return this.cupos
-    // }
-    oferta(porcentaje) {
-        this.precio = this.precio -(this.precio/100*porcentaje)
-        return this.precio
-    
-    };
-    }
-    
-    const curso1 = new Curso("Técnicas de extracción de café", "Juliana Lopez", "15/11/2022", 2500, 10 )
-    const curso2 = new Curso("Técnicas de extracción de café", "Juliana Lopez", "10/01/2023",2500,10)
-    const curso3 = new Curso("Recetas de café para principiantes", "Felipe Carmona","10/11/2022", 2000, 10)
-    const curso4 = new Curso("Recetas de café para principiantes", "Felipe Carmona", "03/01/2023", 2000,10);
-
-
-
-
-
-
-
-
-    
     
 //*************************************************************
 //*********************FUNCIONES GLOBALES*****************************
 function agregar(producto, cantidad) {
     if (producto.stock>=cantidad && producto.stock-cantidad>=0) {
         producto.stock += -cantidad
+        producto.compra += cantidad
         carrito.push(producto);
         totalCarrito += producto.precio*cantidad
     }
         else {
             alert("stock insuficiente, solo quedan: " + producto.stock + " unidades")
         }
-        console.log(totalCarrito, carrito)
         return producto.stock, totalCarrito, carrito
 
         
+}
+
+function revisarCarrito(){
+  console.log(totalCarrito, carrito)
+const listado = []
+   for(const producto of carrito) {
+    listado.push(producto.nombre)
+  }
+  alert("El total a pagar es de: $" + totalCarrito)
+  alert("productos seleccionados: " + listado)
+
 }
 
 
