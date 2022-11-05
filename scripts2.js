@@ -96,6 +96,7 @@ function revisarCarrito(){
 const listado = carrito.map((el) => el.nombre)
   alert("El total a pagar es de: $" + totalCarrito)
   alert("productos seleccionados: " + listado)
+  console.log(carrito)
 
   // let rev = Number(prompt("Quisiera quitar algún producto de su carrito? 1-si  2-no"))
   // if(rev == "2"){
