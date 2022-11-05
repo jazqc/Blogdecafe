@@ -5,11 +5,13 @@
 let totalCarrito = 0
 let cantidad = 0
 const carrito = [];
+const sumarProducto = (a, b) => a * b
 //*************************************************************
 //*********************TIENDA*****************************
 
 class Producto{
-constructor(nombre, marca, tipo, precio, stock,compra){
+constructor(id,nombre, marca, tipo, precio, stock,compra){
+    this.id = id;
     this.nombre = nombre;
     this.marca = marca;
     this.tipo = tipo;
@@ -18,24 +20,8 @@ constructor(nombre, marca, tipo, precio, stock,compra){
     this.compra = parseFloat(compra);
 }
 
-agregar(producto, cantidad) {
-  if (producto.stock>=cantidad && producto.stock-cantidad>=0) {
-      producto.stock += -cantidad
-      carrito.push(producto);
-      totalCarrito += producto.precio*cantidad
-  }
-      else {
-          alert("stock insuficiente, solo quedan: " + producto.stock + " unidades")
-      }
-      console.log(totalCarrito, carrito)
-      return producto.stock, totalCarrito, carrito
-
-      
-}
-
-
 sumarStock(cantidad) {
-    this.stock = this.stock+cantidad
+    this.stock += cantidad
     return this.stock
 }
 oferta(porcentaje) {
@@ -45,12 +31,12 @@ oferta(porcentaje) {
 };
 }
 
-const cafe1 = new Producto("Juan Valdez Premium", "Juan Valdez", "básico", 2500, 20,0);
-const cafe2 = new Producto("Venita Selezionse Merida", "Venita","100% Arábica", 5500, 5,0)
-const cafe3 = new Producto("Giulis-Café de finca", "Giulis", "intenso", 4000, 5,0 )
-const cafetera1 = new Producto("Cafetera Italia", "Bialletti", "Moka", 30000, 2,0)
-const cafetera2 = new Producto("Cafetera de Embolo", "Bodum", "prensa francesa", 20000,3,0);
-const molinillo = new Producto("Molinillo", "Peogeot", "estilo antiguo", 15000,2,0);
+const cafe1 = new Producto(001,"Juan Valdez Premium", "Juan Valdez", "básico", 2500, 20,0);
+const cafe2 = new Producto(002,"Venita Selezionse Merida", "Venita","100% Arábica", 5500, 5,0)
+const cafe3 = new Producto(003,"Giulis-Café de finca", "Giulis", "intenso", 4000, 5,0 )
+const cafetera1 = new Producto(004,"Cafetera Italia", "Bialletti", "Moka", 30000, 2,0)
+const cafetera2 = new Producto(005,"Cafetera de Embolo", "Bodum", "prensa francesa", 20000,3,0);
+const molinillo = new Producto(006,"Molinillo", "Peogeot", "estilo antiguo", 15000,2,0);
 
 
 let respuesta = 1
@@ -75,7 +61,7 @@ while(respuesta==1) {
       break;
       case 5:
         alert("Este producto tiene un 20% de descuento!")
-        cafe5.oferta(20)
+        cafetera2.oferta(20)
         agregar(cafetera2,cantidad);
       break;
       case 6:
@@ -90,15 +76,13 @@ while(respuesta==1) {
       }
    }
 
-    
-//*************************************************************
-//*********************FUNCIONES GLOBALES*****************************
+
 function agregar(producto, cantidad) {
     if (producto.stock>=cantidad && producto.stock-cantidad>=0) {
         producto.stock += -cantidad
         producto.compra += cantidad
         carrito.push(producto);
-        totalCarrito += producto.precio*cantidad
+        totalCarrito += sumarProducto(producto.precio,cantidad)
     }
         else {
             alert("stock insuficiente, solo quedan: " + producto.stock + " unidades")
@@ -109,15 +93,42 @@ function agregar(producto, cantidad) {
 }
 
 function revisarCarrito(){
-  console.log(totalCarrito, carrito)
-const listado = []
-   for(const producto of carrito) {
-    listado.push(producto.nombre)
-  }
+const listado = carrito.map((el) => el.nombre)
   alert("El total a pagar es de: $" + totalCarrito)
   alert("productos seleccionados: " + listado)
 
+  // let rev = Number(prompt("Quisiera quitar algún producto de su carrito? 1-si  2-no"))
+  // if(rev == "2"){
+  //   fin()
+  // }
+  // else eliminar(listado)
 }
 
+// function eliminar(listado){
+// respuesta = 1
+// while(respuesta==1){
+// producto = prompt("Qué producto desearía elmiminar?" + listado)
+// cantidad = prompt("Cuántas unidades?")
+// if (carrito.includes(producto)) {
+//   console.log("hola")
+// }
+// else{
+//   console.log("no lo incl")
+// }
+// respuesta = prompt("Quisiera quitar algún otro producto? 1-si  2-no")
+// }
+// fin()
+// }
 
+// function fin() {
+//   alert("Gracias por su compra, visite nuestra sección de Cursos")
+//   console.log("Productos: " + carrito + "Total a pagar: $" +totalCarrito)
+// }
+// for(const producto of carrito) {
+//   listado.push(producto.nombre + " x " + producto.compra)
+// }
+
+// function eliminar(listado){
+// console.log(listado) 
+// }
 
