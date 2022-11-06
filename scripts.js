@@ -8,7 +8,7 @@ class Curso {
         this.profesor = profesor;
         this.fecha = fecha;
         this.precio = parseFloat(precio);
-        this.cupos = parseFloat(cupos);
+        this.cupos = parseInt(cupos);
         this.inscriptos = inscriptos;
     }
     oferta(porcentaje) {
