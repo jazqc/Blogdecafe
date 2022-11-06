@@ -10,8 +10,8 @@ let listarProductos = ""
 //*************************************************************
 //*********************TIENDA*****************************
 
-class Producto{
-constructor(id,nombre, marca, tipo, precio, stock,compra){
+class Producto {
+  constructor(id, nombre, marca, tipo, precio, stock, compra) {
     this.id = id;
     this.nombre = nombre;
     this.marca = marca;
@@ -19,136 +19,145 @@ constructor(id,nombre, marca, tipo, precio, stock,compra){
     this.precio = parseFloat(precio);
     this.stock = parseInt(stock);
     this.compra = parseInt(compra);
-}
+  }
 
-sumarStock(cantidad) {
-    this.stock += cantidad
+  sumarStock(cantidad) {
+    this.stock += parseInt(cantidad)
     return this.stock
-}
-oferta(porcentaje) {
-    this.precio = this.precio -(this.precio/100*porcentaje)
+  }
+  oferta(porcentaje) {
+    this.precio = this.precio - (this.precio / 100 * porcentaje)
     return this.precio
 
-};
+  };
 }
 
-const cafe1 = new Producto(001,"Juan Valdez Premium", "Juan Valdez", "básico", 2500, 20,0);
-const cafe2 = new Producto(002,"Venita Selezionse Merida", "Venita","100% Arábica", 5500, 5,0)
-const cafe3 = new Producto(003,"Giulis-Café de finca", "Giulis", "intenso", 4000, 5,0 )
-const cafetera1 = new Producto(004,"Cafetera Italia", "Bialletti", "Moka", 30000, 2,0)
-const cafetera2 = new Producto(005,"Cafetera de Embolo", "Bodum", "prensa francesa", 20000,3,0);
-const molinillo = new Producto(006,"Molinillo", "Peogeot", "estilo antiguo", 15000,2,0);
+const cafe1 = new Producto(001, "Juan Valdez Premium", "Juan Valdez", "básico", 2500, 20, 0);
+const cafe2 = new Producto(002, "Venita Selezionse Merida", "Venita", "100% Arábica", 5500, 5, 0)
+const cafe3 = new Producto(003, "Giulis-Café de finca", "Giulis", "intenso", 4000, 5, 0)
+const cafetera1 = new Producto(004, "Cafetera Italia", "Bialletti", "Moka", 30000, 2, 0)
+const cafetera2 = new Producto(005, "Cafetera de Embolo", "Bodum", "prensa francesa", 20000, 3, 0);
+const molinillo = new Producto(006, "Molinillo", "Peogeot", "estilo antiguo", 15000, 2, 0);
 
 
 let respuesta = 1
-while(respuesta==1) {
-    let producto = Number(prompt("Seleccione un producto: 1-Cafe1 2-Cafe2 3-Cafe3 4-Cafetera1 5-Cafetera2 6-Molinillo" ))
-    cantidad = Number(prompt("Cuántas unidades?"))
-   
-    switch(producto){
-      case 1:                       
-        agregar(cafe1,cantidad)
+while (respuesta == 1) {
+  let producto = Number(prompt("Seleccione un producto: 1-Cafe1 2-Cafe2 3-Cafe3 4-Cafetera1 5-Cafetera2 6-Molinillo"))
+  cantidad = Number(prompt("Cuántas unidades?"))
+
+  switch (producto) {
+    case 1:
+      agregar(cafe1, cantidad)
       break;
-      case 2:
-        alert("Este producto tiene un 10% de descuento!")
-        cafe2.oferta(10)
-        agregar(cafe2,cantidad)
+    case 2:
+      alert("Este producto tiene un 10% de descuento!")
+      cafe2.oferta(10)
+      agregar(cafe2, cantidad)
       break;
-      case 3:
-        agregar(cafe3,cantidad);
+    case 3:
+      agregar(cafe3, cantidad);
       break;
-      case 4:
-        agregar(cafetera1,cantidad);
+    case 4:
+      agregar(cafetera1, cantidad);
       break;
-      case 5:
-        alert("Este producto tiene un 20% de descuento!")
-        cafetera2.oferta(20)
-        agregar(cafetera2,cantidad);
+    case 5:
+      alert("Este producto tiene un 20% de descuento!")
+      cafetera2.oferta(20)
+      agregar(cafetera2, cantidad);
       break;
-      case 6:
-        agregar(molinillo,cantidad);
+    case 6:
+      agregar(molinillo, cantidad);
       break;
-      default:
-          alert("El producto no existe")  
-   }
-   respuesta=prompt("Le gustaría agregar otro producto 1-si 2-no")
-   if(respuesta==2){
-      revisarCarrito()    
-      }
-   }
+    default:
+      alert("El producto no existe")
+  }
+  respuesta = prompt("Le gustaría agregar otro producto 1-si 2-no")
+  if (respuesta == 2) {
+    revisarCarrito()
+  }
+}
 
 
 function agregar(producto, cantidad) {
-  if (carrito.includes(producto) && producto.stock>=cantidad && producto.stock-cantidad>=0) {
-    carrito.splice(producto) 
-    sumar(producto,cantidad)
+  if (carrito.includes(producto) && producto.stock >= cantidad && producto.stock - cantidad >= 0) {
+    carrito.splice(producto)
+    sumar(producto, cantidad)     //si ya lo tengo en el carrito, actalizo la cantidad
   }
   else {
-    if (producto.stock>=cantidad && producto.stock-cantidad>=0) {
-        sumar(producto,cantidad)
+    if (producto.stock >= cantidad && producto.stock - cantidad >= 0) {
+      sumar(producto, cantidad)
     }
-        else {
-            alert("stock insuficiente, solo quedan: " + producto.stock + " unidades")
-        }
-        return producto.stock, totalCarrito, carrito
-      }
-        
+    else {
+      alert("stock insuficiente, solo quedan: " + producto.stock + " unidades")
+    }
+    return producto.stock, totalCarrito, carrito
+  }
+
 }
 
-function revisarCarrito(){
-const listado = carrito.map((el) => el.nombre)
-  alert("El total a pagar es de: $" + totalCarrito)
-  alert("productos seleccionados: " + listado)
-  console.log(carrito)
+function revisarCarrito() {
+  const listado = carrito.map((el) => el.nombre)
+  alert("El total a pagar es de: $" + totalCarrito + "\nproductos seleccionados: " + listado)
   let rev = Number(prompt("Quisiera quitar algún producto de su carrito? 1-si  2-no"))
-  if(rev == "2"){
+  if (rev == "2") {
     fin()
   }
-  else eliminar(listado)
+  else eliminar()
 }
 
 
-////TRABAJANDO EN ESO!!////
-function eliminar(){
-respuesta = 1
-while(respuesta==1){
-listar(carrito)
-let productoId = prompt("Qué producto desearía elmiminar?" + listarProductos)
-cantidad = prompt("Cuántas unidades?")
-const aModificar = carrito.filter(producto => producto.id == productoId) 
+////TRABAJANDO EN ESO!!//// VER que pasa cp
+function eliminar() {
+  respuesta2 = 1
+  if(carrito.length === 0) {
+    alert("Su carrito está vacío")
+  }
+  else {
+  while (respuesta2 == 1) {
+    listar(carrito)
+    let productoId = prompt("Qué producto desearía elmiminar?" + listarProductos)
+    cantidad = prompt("Cuántas unidades?")
+    objIndex = carrito.findIndex((producto => producto.id == productoId))
+    if (carrito[objIndex].compra - cantidad == 0) {
+      totalCarrito += -carrito[objIndex].precio * cantidad
+      carrito[objIndex].sumarStock(cantidad)
+      carrito.splice(carrito[objIndex], 1)
+    }
+    else {
+      carrito[objIndex].compra = carrito[objIndex].compra - cantidad
+      carrito[objIndex].sumarStock(cantidad)
+      totalCarrito += -carrito[objIndex].precio* cantidad
+    }
+    console.log(carrito)
 
-  console.log(aModificar)
-// }
-
-// else{
-//   console.log("no lo incl")
-// }
-respuesta = prompt("Quisiera quitar algún otro producto? 1-si  2-no")
-// }
-fin()
+    respuesta2 = prompt("Quisiera quitar algún otro producto? 1-si  2-no")
+    // }
+  }
 }
+  fin()
 }
 
 function fin() {
-  alert("Gracias por su compra, visite nuestra sección de Cursos")
-  console.log("Total a pagar: $" +totalCarrito)
-  console.log(carrito)
+  alert("Gracias por su compra, visite nuestra sección de Cursos \n su total a pagar es de: " + totalCarrito)
+  console.log(carrito,totalCarrito)
 }
 
 
 
-function listar() {
-  for(producto of carrito) {
+function listar(carrito) {
+  listarProductos= ""
+  for (producto of carrito) {
     listarProductos += producto.id + "-" + producto.nombre + "/ "
+  }
+  return listarProductos
 }
-return listarProductos
-}
 
 
 
-function sumar(producto,cantidad) {
+function sumar(producto, cantidad) {
   producto.stock += -cantidad
-        producto.compra += cantidad
-        carrito.push(producto);
-        totalCarrito += sumarProducto(producto.precio,cantidad)
+  producto.compra += cantidad
+  carrito.push(producto);
+  totalCarrito += sumarProducto(producto.precio, cantidad)
 }
+
