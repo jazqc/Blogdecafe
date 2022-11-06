@@ -79,7 +79,7 @@ while(respuesta==1) {
 
 
 function agregar(producto, cantidad) {
-  if (carrito.includes(producto)) {
+  if (carrito.includes(producto) && producto.stock>=cantidad && producto.stock-cantidad>=0) {
     carrito.splice(producto) 
     sumar(producto,cantidad)
   }
