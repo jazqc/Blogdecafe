@@ -98,6 +98,7 @@ function agregar(producto, cantidad) {
 function revisarCarrito() {
   const listado = carrito.map((el) => el.nombre)
   alert("El total a pagar es de: $" + totalCarrito + "\nproductos seleccionados: " + listado)
+  console.log(totalCarrito, carrito)
   let rev = Number(prompt("Quisiera quitar algún producto de su carrito? 1-si  2-no"))
   if (rev == "2") {
     fin()
@@ -106,46 +107,48 @@ function revisarCarrito() {
 }
 
 
-////TRABAJANDO EN ESO!!//// VER que pasa cp
+////TRABAJANDO EN ESTO!!//// VER QUE PASA CON TOTAL CARRITO CUANDO SE ELIMINA Q DA MAL
 function eliminar() {
   respuesta2 = 1
-  if(carrito.length === 0) {
-    alert("Su carrito está vacío")
-  }
-  else {
   while (respuesta2 == 1) {
-    listar(carrito)
-    let productoId = prompt("Qué producto desearía elmiminar?" + listarProductos)
-    cantidad = prompt("Cuántas unidades?")
-    objIndex = carrito.findIndex((producto => producto.id == productoId))
-    if (carrito[objIndex].compra - cantidad == 0) {
-      totalCarrito += -carrito[objIndex].precio * cantidad
-      carrito[objIndex].sumarStock(cantidad)
-      carrito.splice(carrito[objIndex], 1)
+    if (carrito.length === 0) {
+      alert("Su carrito está vacío")
+      fin()
+      break;
     }
     else {
-      carrito[objIndex].compra = carrito[objIndex].compra - cantidad
-      carrito[objIndex].sumarStock(cantidad)
-      totalCarrito += -carrito[objIndex].precio* cantidad
+      listar(carrito)
+      let productoId = prompt("Qué producto desea quitar de su carrito?" + listarProductos)
+      cantidad = prompt("Cuántas unidades desea quitar?")
+      objIndex = carrito.findIndex((producto => producto.id == productoId))
+      if (carrito[objIndex].compra - cantidad == 0) {
+        totalCarrito -= sumarProducto(carrito[objIndex].precio, cantidad)
+        carrito[objIndex].sumarStock(cantidad)
+        carrito.splice(carrito[objIndex], 1)
+      }
+      else if (carrito[objIndex].compra - cantidad < 0) {
+        alert("No dispone de esa cantidad de unidades en su carrito, este tiene: " + carrito[objIndex].compra + " unidades")
+      }
+      else {
+        carrito[objIndex].compra = carrito[objIndex].compra - cantidad
+        carrito[objIndex].sumarStock(cantidad)
+        totalCarrito -= sumarProducto(carrito[objIndex].precio, cantidad)
+      }
+      respuesta2 = prompt("Quisiera quitar algún otro producto? 1-si  2-no")
     }
-    console.log(carrito)
-
-    respuesta2 = prompt("Quisiera quitar algún otro producto? 1-si  2-no")
-    // }
   }
-}
   fin()
 }
 
 function fin() {
   alert("Gracias por su compra, visite nuestra sección de Cursos \n su total a pagar es de: " + totalCarrito)
-  console.log(carrito,totalCarrito)
+  console.log(carrito, totalCarrito)
 }
 
 
 
 function listar(carrito) {
-  listarProductos= ""
+  listarProductos = ""
   for (producto of carrito) {
     listarProductos += producto.id + "-" + producto.nombre + "/ "
   }
@@ -155,7 +158,7 @@ function listar(carrito) {
 
 
 function sumar(producto, cantidad) {
-  producto.stock += -cantidad
+  producto.stock -= cantidad
   producto.compra += cantidad
   carrito.push(producto);
   totalCarrito += sumarProducto(producto.precio, cantidad)
