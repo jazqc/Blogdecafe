@@ -6,7 +6,6 @@ let totalCarrito = 0
 let cantidad = 0
 const carrito = [];
 const sumarProducto = (a, b) => a * b
-let listarProductos = ""
 //*************************************************************
 //*********************TIENDA*****************************
 
@@ -81,7 +80,7 @@ while (respuesta == 1) {
 function agregar(producto, cantidad) {
   if (carrito.includes(producto) && producto.stock >= cantidad && producto.stock - cantidad >= 0) {
     carrito.splice(producto)
-    sumar(producto, cantidad)     //si ya lo tengo en el carrito, actalizo la cantidad
+    sumar(producto, cantidad)     //si ya lo tengo en el carrito, actualizo la cantidad
   }
   else {
     if (producto.stock >= cantidad && producto.stock - cantidad >= 0) {
@@ -107,7 +106,7 @@ function revisarCarrito() {
 }
 
 
-////TRABAJANDO EN ESTO!!//// VER QUE PASA CON TOTAL CARRITO CUANDO SE ELIMINA Q DA MAL
+////TRABAJANDO EN ESTO!!//// VER QUE PASA CON TOTAL CARRITO
 function eliminar() {
   respuesta2 = 1
   while (respuesta2 == 1) {
@@ -117,7 +116,7 @@ function eliminar() {
       break;
     }
     else {
-      listar(carrito)
+     const listarProductos = carrito.map((el) => el.id + "-" + el.nombre)
       let productoId = prompt("Qué producto desea quitar de su carrito?" + listarProductos)
       cantidad = prompt("Cuántas unidades desea quitar?")
       objIndex = carrito.findIndex((producto => producto.id == productoId))
@@ -146,14 +145,14 @@ function fin() {
 }
 
 
-
-function listar(carrito) {
-  listarProductos = ""
-  for (producto of carrito) {
-    listarProductos += producto.id + "-" + producto.nombre + "/ "
-  }
-  return listarProductos
-}
+//OPCION FOR OF
+// function listar(carrito) {
+//   listarProductos = ""
+//   for (producto of carrito) {
+//     listarProductos += producto.id + "-" + producto.nombre + "/ "
+//   }
+//   return listarProductos
+// }
 
 
 
@@ -163,4 +162,3 @@ function sumar(producto, cantidad) {
   carrito.push(producto);
   totalCarrito += sumarProducto(producto.precio, cantidad)
 }
-
