@@ -105,8 +105,6 @@ function revisarCarrito() {
   else eliminar()
 }
 
-
-////TRABAJANDO EN ESTO!!//// VER QUE PASA CON TOTAL CARRITO
 function eliminar() {
   respuesta2 = 1
   while (respuesta2 == 1) {
