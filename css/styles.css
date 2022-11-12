@@ -184,6 +184,7 @@ div.carrito{
     background-color: var(--primario);
     border-radius: 1rem;
     padding: 1rem 1rem;
+    margin: auto;
 
 }
 .widget--curso {
@@ -302,6 +303,13 @@ margin: auto;
 @media (min-width: 768px) {
 img.imgprod{
     max-height: 20rem;
+    
+}
+.producto h2 {
+    font-size: 3rem;
+    text-align: center;
+    margin: auto;
+    margin-top: 4rem;
 }
 }
 div.producto {
@@ -309,10 +317,10 @@ div.producto {
     text-align: center;
 }
 .producto h2 {
-    font-size: 3rem;
+    font-size: 2rem;
     text-align: center;
     margin: auto;
-    margin-top: 4rem;
+    margin-top: 2rem;
 }
 .producto option {
     font-size: 2rem;
