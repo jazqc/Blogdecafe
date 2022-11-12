@@ -52,7 +52,7 @@ botones.forEach(boton => {
 function agregarProducto(e) {
 const idBoton = e.currentTarget.id;
 const productoAgregado = productos.find(producto => producto.id === idBoton)
-agregar(productoAgregado,1)
+agregar(productoAgregado,1)  //el parametro 1 lo puse hasta q resuelva como obterne el valor del select.
 }
 
 //VER TEMA CANTIDAD A PARTIR DEL SELECT
