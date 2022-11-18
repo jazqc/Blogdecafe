@@ -128,18 +128,18 @@ botonesRest.forEach(botonR => {
 
 function incrementar(e) {
   const idInput = e.currentTarget.id.substr(-3);
-  cant++
+  cant = document.getElementById(`cantidad${idInput}`).value
+  cant ++
   document.getElementById(`cantidad${idInput}`).value = cant
   console.log(cant,idInput)
-  return cant
 }
 
 function decrementar(e) {
   const idInput = e.currentTarget.id.substr(-3);
-  cant--
+  cant = document.getElementById(`cantidad${idInput}`).value
+  cant --
   document.getElementById(`cantidad${idInput}`).value = cant
   console.log(cant, idInput)
-  return cant
 }
 
 
@@ -151,34 +151,6 @@ agregar(productoAgregado,cantidad)
 console.log(cantidad,carrito)
 }
 
-
-
-  // switch (producto) {
-  //   case 1:
-  //     agregar(cafe1, cantidad)
-  //     break;
-  //   case 2:
-  //     alert("Este producto tiene un 10% de descuento!")
-  //     cafe2.oferta(10)
-  //     agregar(cafe2, cantidad)
-  //     break;
-  //   case 3:
-  //     agregar(cafe3, cantidad);
-  //     break;
-  //   case 4:
-  //     agregar(cafetera1, cantidad);
-  //     break;
-  //   case 5:
-  //     alert("Este producto tiene un 20% de descuento!")
-  //     cafetera2.oferta(20)
-  //     agregar(cafetera2, cantidad);
-  //     break;
-  //   case 6:
-  //     agregar(molinillo, cantidad);
-  //     break;
-  //   default:
-  //     alert("El producto no existe")
-  // }
 
 
 
