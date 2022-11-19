@@ -187,24 +187,8 @@ div.carrito{
     margin: auto;
 
 }
-.productosCont {
-    margin-top: 1rem;
-}
 
-.producto-agregar {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    width: 85%;
 
-}
-
-.plus, .rest {
-
-    margin: 2rem;
-    border: none;
-    color: white;
-    background-color: #ffffff;
-}
 .widget--curso {
     border-bottom: 1px solid var(--gris);
     margin-bottom: 2rem;
@@ -327,6 +311,36 @@ img.imgprod{
     max-height: 20rem;
     
 }
+
+
+/* tienda */
+.productosCont {
+    margin-top: 1rem;
+}
+
+.producto-agregar {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 85%;
+    letter-spacing: 2px;
+}
+
+.producto-agregar:before {
+    content: "AGREGAR";
+}
+.producto-agregar:hover:before {
+    content:"BUENA IDEA!";
+    }
+
+
+.plus, .rest {
+
+    margin: 2rem;
+    border: none;
+    color: white;
+    background-color: #ffffff;
+}
+
 .producto h2 {
     font-size: 3rem;
     text-align: center;
@@ -335,9 +349,11 @@ img.imgprod{
 }
 }
 div.producto {
-    border: solid 0.1rem;
+    border: solid 0.05rem;
+    border-color: gray;
     text-align: center;
 }
+
 .producto h2 {
     font-size: 2rem;
     text-align: center;
@@ -352,4 +368,9 @@ div.producto {
     font-size: 2rem;
     text-align: center;
     margin-top: 4rem;
+}
+.mensajeStock {
+    color: red;
+    font-size: 2rem;
+
 }

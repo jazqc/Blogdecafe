@@ -40,10 +40,10 @@ const cafe2 = new Producto("002", "img/cafe2.png", "Venita Selezionse Merida", "
 const cafe3 = new Producto("003", "img/cafe3.png", "Giulis-Café de finca", "Giulis", "intenso", 4000, 5, 0)
 const cafetera1 = new Producto("004", "img/cafeteraMoka.png", "Cafetera Italia", "Bialletti", "Moka", 30000, 2, 0)
 const cafetera2 = new Producto("005", "img/cafeteraEmbolo.png", "Cafetera de Embolo", "Bodum", "prensa francesa", 20000, 3, 0);
-const molinillo = new Producto("006", "img/Molinillo.png", "Molinillo", "Peogeot", "estilo antiguo", 15000, 2, 0);
+const molinillo = new Producto("006", "img/Molinillo.png", "Molinillo", "Peugeot", "estilo antiguo", 15000, 2, 0);
 
 const productos = [cafe1,cafe2,cafe3,cafetera1,cafetera2,molinillo]
-
+const guardarLocal = (clave, valor) => {localStorage.setItem(clave, valor)}
 
 let contenedor = document.getElementById("productosContainer")
 
@@ -67,7 +67,7 @@ productos.forEach((producto)=>{
   let content4 = document.createElement("div")
   content4.className="col-12 col-md-4"
   content4.innerHTML = `
-  <h2>${producto.precio}</h2>`;
+  <h2>$${producto.precio}</h2>`;
   
   let quantity = document.createElement("div")
   let botonRest = document.createElement("button")
@@ -83,6 +83,7 @@ productos.forEach((producto)=>{
   let valor = document.createElement("input")
   valor.className = "valorCantidad"
   valor.setAttribute("id", `cantidad${producto.id}`)
+  valor.value = 0;
 
   let botonPlus = document.createElement("button")
   botonPlus.innerHTML = `
@@ -97,10 +98,16 @@ productos.forEach((producto)=>{
   quantity.append(botonRest,valor,botonPlus)
 
   let comprar = document.createElement("button")
-  comprar.innerText = "AGREGAR"
   comprar.className = "boton boton--terciario producto-agregar"
   comprar.setAttribute("id", `comprar${producto.id}`)
-  content4.append(quantity,comprar)
+
+  let mensajeStock = document.createElement("div")
+  mensajeStock.className = "mensajeStock"
+  mensajeStock.setAttribute("id", `mensaje${producto.id}`)
+
+  content4.append(quantity,comprar,mensajeStock)
+
+  
 
   content1.append(content2, content3,content4)
   content.append(content1)
@@ -131,24 +138,30 @@ function incrementar(e) {
   cant = document.getElementById(`cantidad${idInput}`).value
   cant ++
   document.getElementById(`cantidad${idInput}`).value = cant
-  console.log(cant,idInput)
+  // console.log(cant,idInput)
 }
 
 function decrementar(e) {
   const idInput = e.currentTarget.id.substr(-3);
   cant = document.getElementById(`cantidad${idInput}`).value
-  cant --
+  if (cant> 0) {cant --
   document.getElementById(`cantidad${idInput}`).value = cant
-  console.log(cant, idInput)
+  // console.log(cant, idInput)
+  }
 }
 
 
 function agregarProducto(e) {
 const idBoton = e.currentTarget.id.substr(-3);
 const cantidad = parseInt(document.getElementById(`cantidad${idBoton}`).value)
+if (cantidad != 0 && cantidad != "") {
 const productoAgregado = productos.find(producto => producto.id === idBoton)
 agregar(productoAgregado,cantidad)
 console.log(cantidad,carrito)
+}
+else {
+  document.getElementById(`mensaje${idBoton}`).innerText = "Por favor, seleccione cantidad"
+}
 }
 
 
@@ -156,6 +169,8 @@ console.log(cantidad,carrito)
 
 
 function agregar(producto, cantidad) {
+  document.getElementById(`cantidad${producto.id}`).value = 0
+  document.getElementById(`mensaje${producto.id}`).innerText = ""
   if (carrito.includes(producto) && producto.stock >= cantidad && producto.stock - cantidad >= 0) {
     carrito.splice(producto)
     sumar(producto, cantidad)     //si ya lo tengo en el carrito, actualizo la cantidad
@@ -165,11 +180,15 @@ function agregar(producto, cantidad) {
       sumar(producto, cantidad)
     }
     else {
-      alert("stock insuficiente, solo quedan: " + producto.stock + " unidades")
+        document.getElementById(`mensaje${producto.id}`).innerText = `Stock insuficiente, solo quedan: ${producto.stock} unidades`
+
     }
     return producto.stock, totalCarrito, carrito
   }
 }
+
+
+
 
 // function revisarCarrito() {
 //   const listado = carrito.map((el) => el.nombre)
@@ -235,5 +254,7 @@ function sumar(producto, cantidad) {
   producto.stock -= cantidad
   producto.compra += cantidad
   carrito.push(producto);
+  guardarLocal(producto.id, JSON.stringify(producto));
   totalCarrito += sumarProducto(producto.precio, cantidad)
+  console.log(carrito)
 }
