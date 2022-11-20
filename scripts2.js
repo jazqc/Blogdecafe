@@ -43,7 +43,7 @@ const cafetera2 = new Producto("005", "img/cafeteraEmbolo.png", "Cafetera de Emb
 const molinillo = new Producto("006", "img/Molinillo.png", "Molinillo", "Peugeot", "estilo antiguo", 15000, 2, 0);
 
 const productos = [cafe1,cafe2,cafe3,cafetera1,cafetera2,molinillo]
-const guardarLocal = (clave, valor) => {localStorage.setItem(clave, valor)}
+// const guardarLocal = (clave, valor) => {localStorage.setItem(clave, valor)}
 
 let contenedor = document.getElementById("productosContainer")
 
@@ -166,8 +166,6 @@ else {
 
 
 
-
-
 function agregar(producto, cantidad) {
   document.getElementById(`cantidad${producto.id}`).value = 0
   document.getElementById(`mensaje${producto.id}`).innerText = ""
@@ -249,12 +247,111 @@ function agregar(producto, cantidad) {
 // // }
 
 
-
 function sumar(producto, cantidad) {
   producto.stock -= cantidad
   producto.compra += cantidad
   carrito.push(producto);
-  guardarLocal(producto.id, JSON.stringify(producto));
+  // guardarLocal(producto.id, JSON.stringify(producto));
+  localStorage.setItem('carrito', JSON.stringify(carrito));
   totalCarrito += sumarProducto(producto.precio, cantidad)
   console.log(carrito)
 }
+
+//************************CARRITO********************************
+
+// let contenedorCarrito = document.getElementById("carritoContainer")
+
+// carrito.forEach((producto)=>{
+//   let contentC = document.createElement("div")
+//   contentC.className="producto"
+
+//   let contentD = document.createElement("div")
+//   contentD.className="row"
+
+
+//   let contentE = document.createElement("div")
+//   contentE.className="col-12 col-md-4"
+//   contentE.innerHTML = `
+//           <h2>${producto.nombre}</h2>
+//   `
+//   let contentF = document.createElement("div")
+//   contentF.className="col-12 col-md-4"
+//   contentF.innerHTML = `
+//   <h2>$${producto.precio}</h2>`;
+
+//   contenedorCarrito.append(contentC)
+// })
+
+// //***************************CURSOS********************************* EN PROCESO
+
+// class Curso {
+//   constructor(id, nombre, profesor, fecha, precio, cupos, inscriptos) {
+//     this.id = id;
+//       this.nombre = nombre;
+//       this.profesor = profesor;
+//       this.fecha = fecha;
+//       this.precio = parseFloat(precio);
+//       this.cupos = parseInt(cupos);
+//       this.inscriptos = inscriptos;
+//   }
+//   oferta(porcentaje) {
+//       this.precio = this.precio - (this.precio / 100 * porcentaje)
+//       return this.precio
+
+//   };
+// }
+
+// const curso1 = new Curso("c1", "Técnicas de extracción de café", "Juliana Lopez", "15/11/2022", 2500, 10, [])
+// const curso2 = new Curso("c2", "Técnicas de extracción de café", "Juliana Lopez", "10/01/2023", 2500, 10, [])
+// const curso3 = new Curso("c3", "Taller para tostar y moler granos", "Felipe Carmona", "10/11/2022", 2000, 10, [])
+// const curso4 = new Curso("c4", "Taller para tostar y moler granos", "Felipe Carmona", "03/01/2023", 2000, 10, []);
+
+// let botonesReserva = document.querySelectorAll(".curso-reservar");
+
+// botones.forEach(boton => {
+//   boton.addEventListener("click", reservarCurso);
+// });
+
+// function reservarCurso(e) {
+//   const idBoton = e.currentTarget.id.substr(-2);
+
+
+
+
+//   let persona = prompt("Ingrese su nombre y apellido")
+//   const newInscripto = (persona)
+//   curso.inscriptos.push(newInscripto)
+//   totalCarrito += curso.precio * cantidad
+//   curso.cupos -= cantidad
+//   carrito.push(curso);
+//   cupos = 0;
+//   alert("Inscripción realizada con éxito")
+//   return curso.inscriptos, carrito, totalCarrito
+// }
+
+
+
+
+
+// let contenedorCarrito = document.getElementById("carritoContainer")
+
+// carrito.forEach((producto)=>{
+//   let contentC = document.createElement("div")
+//   contentC.className="producto"
+
+//   let contentD = document.createElement("div")
+//   contentD.className="row"
+
+
+//   let contentE = document.createElement("div")
+//   contentE.className="col-12 col-md-4"
+//   contentE.innerHTML = `
+//           <h2>"HOLA"</h2>
+//   `
+//   let contentF = document.createElement("div")
+//   contentF.className="col-12 col-md-4"
+//   contentF.innerHTML = `
+//   <h2>$${producto.precio}</h2>`;
+
+//   contenedorCarrito.append(contentC,contentD,contentE,contentF)
+// })

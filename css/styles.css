@@ -313,34 +313,6 @@ img.imgprod{
 }
 
 
-/* tienda */
-.productosCont {
-    margin-top: 1rem;
-}
-
-.producto-agregar {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    width: 85%;
-    letter-spacing: 2px;
-}
-
-.producto-agregar:before {
-    content: "AGREGAR";
-}
-.producto-agregar:hover:before {
-    content:"BUENA IDEA!";
-    }
-
-
-.plus, .rest {
-
-    margin: 2rem;
-    border: none;
-    color: white;
-    background-color: #ffffff;
-}
-
 .producto h2 {
     font-size: 3rem;
     text-align: center;
@@ -373,4 +345,44 @@ div.producto {
     color: red;
     font-size: 2rem;
 
+}
+/* tienda */
+.productosCont {
+    margin-top: 1rem;
+}
+
+.producto-agregar {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 85%;
+    letter-spacing: 2px;
+}
+
+.producto-agregar:before {
+    content: "AGREGAR";
+}
+.producto-agregar:hover:before {
+    content:"BUENA IDEA!";
+    }
+
+
+.plus, .rest {
+
+    margin: 2rem;
+    border: none;
+    color: white;
+    background-color: #ffffff;
+}
+
+
+/* CARRITO */
+
+.producto-eliminar:before {
+    content: "ELIMINAR";
+}
+.producto-eliminar:hover:before {
+    content:"-1";
+    }
+.encabezado {
+    text-align: center;
 }
