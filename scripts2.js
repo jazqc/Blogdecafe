@@ -36,7 +36,7 @@ class Producto {
 }
 
 const cafe1 = new Producto("001", "./img/cafe1.png","Juan Valdez Premium", "Juan Valdez", "básico", 2500, 20, 0);
-const cafe2 = new Producto("002", "img/cafe2.png", "Venita Selezionse Merida", "Venita", "100% Arábica", 5500, 5, 0)
+const cafe2 = new Producto("002", "img/cafe2.jpg", "Venita Selezionse Merida", "Venita", "100% Arábica", 5500, 5, 0)
 const cafe3 = new Producto("003", "img/cafe3.png", "Giulis-Café de finca", "Giulis", "intenso", 4000, 5, 0)
 const cafetera1 = new Producto("004", "img/cafeteraMoka.png", "Cafetera Italia", "Bialletti", "Moka", 30000, 2, 0)
 const cafetera2 = new Producto("005", "img/cafeteraEmbolo.png", "Cafetera de Embolo", "Bodum", "prensa francesa", 20000, 3, 0);
@@ -157,7 +157,6 @@ const cantidad = parseInt(document.getElementById(`cantidad${idBoton}`).value)
 if (cantidad != 0 && cantidad != "") {
 const productoAgregado = productos.find(producto => producto.id === idBoton)
 agregar(productoAgregado,cantidad)
-console.log(cantidad,carrito)
 }
 else {
   document.getElementById(`mensaje${idBoton}`).innerText = "Por favor, seleccione cantidad"
@@ -184,6 +183,20 @@ function agregar(producto, cantidad) {
     return producto.stock, totalCarrito, carrito
   }
 }
+
+
+function sumar(producto, cantidad) {
+  producto.stock -= cantidad
+  producto.compra += cantidad
+  carrito.push(producto);
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+  totalCarrito += sumarProducto(producto.precio, cantidad)
+  console.log(carrito)
+}
+
+
+
+
 
 
 
@@ -247,15 +260,7 @@ function agregar(producto, cantidad) {
 // // }
 
 
-function sumar(producto, cantidad) {
-  producto.stock -= cantidad
-  producto.compra += cantidad
-  carrito.push(producto);
-  // guardarLocal(producto.id, JSON.stringify(producto));
-  localStorage.setItem('carrito', JSON.stringify(carrito));
-  totalCarrito += sumarProducto(producto.precio, cantidad)
-  console.log(carrito)
-}
+
 
 //************************CARRITO********************************
 
