@@ -198,9 +198,6 @@ function sumar(producto, cantidad) {
 
 
 
-
-
-
 // function revisarCarrito() {
 //   const listado = carrito.map((el) => el.nombre)
 //   alert("El total a pagar es de: $" + totalCarrito + "\nproductos seleccionados: " + listado)

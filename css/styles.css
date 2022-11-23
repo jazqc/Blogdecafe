@@ -389,3 +389,6 @@ div .producto img {
     text-align: right;
     padding-right: 4rem; 
 }
+.boton-vaciar, .boton--terciario{
+    width: fit-content;
+}
