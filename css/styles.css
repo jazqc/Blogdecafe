@@ -57,6 +57,15 @@ img {
     max-width: 100%; /**para que no se deformen**/
 }
 
+a {
+    text-decoration: none;
+}
+  
+a:hover {
+    color: #ffffff;
+}
+
+
 /**Utilidades**/
 
 .no-margin {
@@ -126,8 +135,8 @@ div.carrito{
         gap: 2rem;
     }
     div.carrito{
-        display: block;
-        text-align: right;
+        display: flex;
+        justify-content: flex-end;
     }
 }
 
@@ -306,46 +315,28 @@ img.imgprod{
 margin: auto;
 }
 
-@media (min-width: 768px) {
-img.imgprod{
-    max-height: 20rem;
-    width: 20%;
-}
-
-
-.producto h2 {
-    font-size: 3rem;
-    text-align: center;
-    margin: auto;
-    margin-top: 4rem;
-}
-}
-div.producto {
+div.producto, .productoEnCarrito {
     border: solid 0.05rem;
     border-color: gray;
     text-align: center;
 }
 
+@media (min-width: 768px) {
+
 .producto h2 {
-    font-size: 2rem;
     text-align: center;
     margin: auto;
-    margin-top: 2rem;
+    margin-top: 3rem;
+    vertical-align: middle;
 }
-.producto option {
-    font-size: 2rem;
-    text-align: center;
 }
-.producto select {
-    font-size: 2rem;
-    text-align: center;
-    margin-top: 4rem;
-}
+
+
 .mensajeStock {
     color: red;
     font-size: 2rem;
-
 }
+
 /* tienda */
 .productosCont {
     margin-top: 1rem;
@@ -354,8 +345,10 @@ div.producto {
 
 /* EQUIPARAR LOS TAMAÑOS DE IMAGENES */
 div .producto img {
-    width: 60%;
+    max-width: 100%;
+    height: 30rem;
 }
+
 .producto-agregar {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -379,16 +372,47 @@ div .producto img {
     background-color: #ffffff;
 }
 
-
+.valorCantidad {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+}
 /* CARRITO */
 
-.encabezado {
+.encabezado h3{
     text-align: center;
+    font-size: 2.1rem;
 }
-.total {
+.total h3{
     text-align: right;
     padding-right: 4rem; 
+    font-size: 3rem;
 }
 .boton-vaciar, .boton--terciario{
     width: fit-content;
+    margin: none;
+}
+
+
+.productoEnCarrito h2 {
+    text-align: center;
+    margin: auto;
+    margin-top: 2rem;
+    font-size: 2rem;
+    padding: 1rem;
+}
+@media (min-width: 768px) {
+    .productoEnCarrito h2 {
+        font-size: 2.5rem;
+    }
+    .encabezado h3{
+        text-align: center;
+        font-size: 2.8rem;
+    }
+    .boton-vaciar, .boton--terciario{
+        width: fit-content;
+        margin: none;
+    }
+
 }

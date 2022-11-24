@@ -38,29 +38,30 @@ class Producto {
 const cafe1 = new Producto("001", "./img/cafe1.png","Juan Valdez Premium", "Juan Valdez", "básico", 2500, 20, 0);
 const cafe2 = new Producto("002", "img/cafe2.jpg", "Venita Selezionse Merida", "Venita", "100% Arábica", 5500, 5, 0)
 const cafe3 = new Producto("003", "img/cafe3.png", "Giulis-Café de finca", "Giulis", "intenso", 4000, 5, 0)
-const cafetera1 = new Producto("004", "img/cafeteraMoka.png", "Cafetera Italia", "Bialletti", "Moka", 30000, 2, 0)
-const cafetera2 = new Producto("005", "img/cafeteraEmbolo.png", "Cafetera de Embolo", "Bodum", "prensa francesa", 20000, 3, 0);
-const molinillo = new Producto("006", "img/Molinillo.png", "Molinillo", "Peugeot", "estilo antiguo", 15000, 2, 0);
+const cafe4 = new Producto("004", "img/cafe4.png", "Café Brasil Santos Bourbon", "Torremolinos", "100% Arábica", 3200, 5, 0)
+const cafetera1 = new Producto("005", "img/cafeteraMoka.png", "Cafetera Italia", "Bialletti", "Moka", 30000, 2, 0)
+const cafetera2 = new Producto("006", "img/cafeteraEmbolo.png", "Cafetera de Embolo", "Bodum", "prensa francesa", 20000, 3, 0);
+const molinillo = new Producto("007", "img/Molinillo.png", "Molinillo", "Peugeot", "estilo antiguo", 15000, 2, 0);
 
-const productos = [cafe1,cafe2,cafe3,cafetera1,cafetera2,molinillo]
+const productos = [cafe1,cafe2,cafe3,cafe4,cafetera1,cafetera2,molinillo]
 // const guardarLocal = (clave, valor) => {localStorage.setItem(clave, valor)}
 
 let contenedor = document.getElementById("productosContainer")
 
 productos.forEach((producto)=>{
   let content = document.createElement("div")
-  content.className="producto"
+  content.className="producto row"
 
-  let content1 = document.createElement("div")
-  content1.className="row"
+  // let content1 = document.createElement("div")
+  // content1.className="row"
 
   let content2 = document.createElement("div")
-  content2.className="col-12 col-md-4"
+  content2.className="imagen-producto col-12 col-md-4"
   content2.innerHTML = `
           <img src="${producto.imagen}">`
 
   let content3 = document.createElement("div")
-  content3.className="col-12 col-md-4"
+  content3.className="nombre-producto col-12 col-md-4"
   content3.innerHTML = `
           <h2>${producto.nombre}</h2>
   `
@@ -109,8 +110,8 @@ productos.forEach((producto)=>{
 
   
 
-  content1.append(content2, content3,content4)
-  content.append(content1)
+  content.append(content2, content3,content4)
+  // content.append(content1)
   contenedor.append(content)
 })
 
@@ -197,163 +198,3 @@ function sumar(producto, cantidad) {
 
 
 
-
-// function revisarCarrito() {
-//   const listado = carrito.map((el) => el.nombre)
-//   alert("El total a pagar es de: $" + totalCarrito + "\nproductos seleccionados: " + listado)
-//   console.log(totalCarrito, carrito)
-//   let rev = Number(prompt("Quisiera quitar algún producto de su carrito? 1-si  2-no"))
-//   if (rev == "2") {
-//     fin()
-//   }
-//   else eliminar()
-// }
-
-// function eliminar() {
-//   respuesta2 = 1
-//   while (respuesta2 == 1) {
-//     if (carrito.length === 0) {
-//       alert("Su carrito está vacío")
-//       fin()
-//       break;
-//     }
-//     else {
-//      const listarProductos = carrito.map((el) => el.id + "-" + el.nombre)
-//       let productoId = prompt("Qué producto desea quitar de su carrito?" + listarProductos)
-//       cantidad = prompt("Cuántas unidades desea quitar?")
-//       objIndex = carrito.findIndex((producto => producto.id == productoId))
-//       if (carrito[objIndex].compra - cantidad == 0) {
-//         totalCarrito -= sumarProducto(carrito[objIndex].precio, cantidad)
-//         carrito[objIndex].sumarStock(cantidad)
-//         carrito.splice(carrito[objIndex], 1)
-//       }
-//       else if (carrito[objIndex].compra - cantidad < 0) {
-//         alert("No dispone de esa cantidad de unidades en su carrito, este tiene: " + carrito[objIndex].compra + " unidades")
-//       }
-//       else {
-//         carrito[objIndex].compra = carrito[objIndex].compra - cantidad
-//         carrito[objIndex].sumarStock(cantidad)
-//         totalCarrito -= sumarProducto(carrito[objIndex].precio, cantidad)
-//       }
-//       respuesta2 = prompt("Quisiera quitar algún otro producto? 1-si  2-no")
-//     }
-//   }
-//   fin()
-// }
-
-// function fin() {
-//   alert("Gracias por su compra, visite nuestra sección de Cursos \n su total a pagar es de: " + totalCarrito)
-//   console.log(carrito, totalCarrito)
-// }
-
-
-// //OPCION FOR OF
-// // function listar(carrito) {
-// //   listarProductos = ""
-// //   for (producto of carrito) {
-// //     listarProductos += producto.id + "-" + producto.nombre + "/ "
-// //   }
-// //   return listarProductos
-// // }
-
-
-
-
-//************************CARRITO********************************
-
-// let contenedorCarrito = document.getElementById("carritoContainer")
-
-// carrito.forEach((producto)=>{
-//   let contentC = document.createElement("div")
-//   contentC.className="producto"
-
-//   let contentD = document.createElement("div")
-//   contentD.className="row"
-
-
-//   let contentE = document.createElement("div")
-//   contentE.className="col-12 col-md-4"
-//   contentE.innerHTML = `
-//           <h2>${producto.nombre}</h2>
-//   `
-//   let contentF = document.createElement("div")
-//   contentF.className="col-12 col-md-4"
-//   contentF.innerHTML = `
-//   <h2>$${producto.precio}</h2>`;
-
-//   contenedorCarrito.append(contentC)
-// })
-
-// //***************************CURSOS********************************* EN PROCESO
-
-// class Curso {
-//   constructor(id, nombre, profesor, fecha, precio, cupos, inscriptos) {
-//     this.id = id;
-//       this.nombre = nombre;
-//       this.profesor = profesor;
-//       this.fecha = fecha;
-//       this.precio = parseFloat(precio);
-//       this.cupos = parseInt(cupos);
-//       this.inscriptos = inscriptos;
-//   }
-//   oferta(porcentaje) {
-//       this.precio = this.precio - (this.precio / 100 * porcentaje)
-//       return this.precio
-
-//   };
-// }
-
-// const curso1 = new Curso("c1", "Técnicas de extracción de café", "Juliana Lopez", "15/11/2022", 2500, 10, [])
-// const curso2 = new Curso("c2", "Técnicas de extracción de café", "Juliana Lopez", "10/01/2023", 2500, 10, [])
-// const curso3 = new Curso("c3", "Taller para tostar y moler granos", "Felipe Carmona", "10/11/2022", 2000, 10, [])
-// const curso4 = new Curso("c4", "Taller para tostar y moler granos", "Felipe Carmona", "03/01/2023", 2000, 10, []);
-
-// let botonesReserva = document.querySelectorAll(".curso-reservar");
-
-// botones.forEach(boton => {
-//   boton.addEventListener("click", reservarCurso);
-// });
-
-// function reservarCurso(e) {
-//   const idBoton = e.currentTarget.id.substr(-2);
-
-
-
-
-//   let persona = prompt("Ingrese su nombre y apellido")
-//   const newInscripto = (persona)
-//   curso.inscriptos.push(newInscripto)
-//   totalCarrito += curso.precio * cantidad
-//   curso.cupos -= cantidad
-//   carrito.push(curso);
-//   cupos = 0;
-//   alert("Inscripción realizada con éxito")
-//   return curso.inscriptos, carrito, totalCarrito
-// }
-
-
-
-
-
-// let contenedorCarrito = document.getElementById("carritoContainer")
-
-// carrito.forEach((producto)=>{
-//   let contentC = document.createElement("div")
-//   contentC.className="producto"
-
-//   let contentD = document.createElement("div")
-//   contentD.className="row"
-
-
-//   let contentE = document.createElement("div")
-//   contentE.className="col-12 col-md-4"
-//   contentE.innerHTML = `
-//           <h2>"HOLA"</h2>
-//   `
-//   let contentF = document.createElement("div")
-//   contentF.className="col-12 col-md-4"
-//   contentF.innerHTML = `
-//   <h2>$${producto.precio}</h2>`;
-
-//   contenedorCarrito.append(contentC,contentD,contentE,contentF)
-// })

@@ -1,5 +1,9 @@
 
-let totalCarrito = 0 // estas variables en realidad están definidas en los dos scripts.js, la definí acá tmb porque separé los js para que no se ejecuten los prompts en el home sino solo al ingresar a la tienda o a los cursos
+//EN DESARROLLO!!
+
+
+
+let totalCarrito = 0 
 const carrito = [];
 
 class Curso {

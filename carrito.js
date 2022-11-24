@@ -11,29 +11,29 @@ totalCarrito = 0;
 contenedorCarrito.innerHTML = "" 
 carrito.forEach((producto)=>{
   let contentC = document.createElement("div")
-  contentC.className="producto"
+  contentC.className="productoEnCarrito"
 
   let contentD = document.createElement("div")
   contentD.className="row"
 
 
   let contentE = document.createElement("div")
-  contentE.className="col-12 col-md-3"
+  contentE.className="col-3 col-md-3"
   contentE.innerHTML = `
           <h2>${producto.nombre}</h2>
   `
   let contentF = document.createElement("div")
-  contentF.className="col-12 col-md-3"
+  contentF.className="col-3 col-md-3"
   contentF.innerHTML = `
   <h2>$${producto.precio}</h2>`;
 
   let contentG = document.createElement("div")
-  contentG.className="col-12 col-md-3"
+  contentG.className="botonesCarrito col-3 col-md-3"
   contentG.innerHTML = `
   <h2>${producto.compra}</h2>`;
 
   let contentH = document.createElement("div")
-  contentH.className="col-12 col-md-3"
+  contentH.className="col-3 col-md-3"
 
   let disminuir = document.createElement("button")
   disminuir.innerHTML =  `
@@ -105,7 +105,8 @@ function reiniciar() {
     Swal.fire({
       text: 'Tu carrito está vacío',
       icon: 'success',
-      timer: 1700
+      timer: 1700,
+      className: "alerta"
     
     })
 }
