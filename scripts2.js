@@ -2,7 +2,6 @@
 //*************************************************************
 //*********************GLOBALES*****************************
 
-let totalCarrito = 0
 let cantidad = 0
 let boton = ""
 let cant = 0
@@ -39,13 +38,15 @@ const cafe1 = new Producto("001", "./img/cafe1.png","Juan Valdez Premium", "Juan
 const cafe2 = new Producto("002", "img/cafe2.jpg", "Venita Selezionse Merida", "Venita", "100% Arábica", 5500, 5, 0)
 const cafe3 = new Producto("003", "img/cafe3.png", "Giulis-Café de finca", "Giulis", "intenso", 4000, 5, 0)
 const cafe4 = new Producto("004", "img/cafe4.png", "Café Brasil Santos Bourbon", "Torremolinos", "100% Arábica", 3200, 5, 0)
-const cafetera1 = new Producto("005", "img/cafeteraMoka.png", "Cafetera Italia", "Bialletti", "Moka", 30000, 2, 0)
-const cafetera2 = new Producto("006", "img/cafeteraEmbolo.png", "Cafetera de Embolo", "Bodum", "prensa francesa", 20000, 3, 0);
-const molinillo = new Producto("007", "img/Molinillo.png", "Molinillo", "Peugeot", "estilo antiguo", 15000, 2, 0);
+const cafe5 = new Producto("005", "img/cafe5.png", "Café Quindio Gourmet", "Quindio", "100% colombiano", 3500, 5, 0)
+const cafetera1 = new Producto("006", "img/cafeteraMoka.png", "Cafetera Italia", "Bialletti", "Moka", 30000, 2, 0)
+const cafetera2 = new Producto("007", "img/cafeteraEmbolo.png", "Cafetera de Embolo", "Bodum", "prensa francesa", 20000, 3, 0);
+const molinillo = new Producto("008", "img/Molinillo.png", "Molinillo", "Peugeot", "estilo antiguo", 15000, 2, 0);
 
-const productos = [cafe1,cafe2,cafe3,cafe4,cafetera1,cafetera2,molinillo]
+const productos = [cafe1,cafe2,cafe3,cafe4,cafe5,cafetera1,cafetera2,molinillo]
 // const guardarLocal = (clave, valor) => {localStorage.setItem(clave, valor)}
 
+//CONTENEDOR
 let contenedor = document.getElementById("productosContainer")
 
 productos.forEach((producto)=>{
@@ -79,7 +80,7 @@ productos.forEach((producto)=>{
   <line x1="9" y1="12" x2="15" y2="12" />
 </svg>`
   botonRest.className = "rest"
-  botonRest.setAttribute("id", `rest${producto.id}`)
+  botonRest.setAttribute("data-producto", producto.id)
 
   let valor = document.createElement("input")
   valor.className = "valorCantidad"
@@ -95,12 +96,14 @@ productos.forEach((producto)=>{
   <line x1="12" y1="9" x2="12" y2="15" />
 </svg>`
   botonPlus.className = "plus"
-  botonPlus.setAttribute("id", `plus${producto.id}`)
+  // botonPlus.setAttribute("id", `plus${producto.id}`)
+  botonPlus.setAttribute("data-producto", producto.id)
   quantity.append(botonRest,valor,botonPlus)
 
   let comprar = document.createElement("button")
   comprar.className = "boton boton--terciario producto-agregar"
   comprar.setAttribute("id", `comprar${producto.id}`)
+  comprar.setAttribute("data-producto", producto.id)
 
   let mensajeStock = document.createElement("div")
   mensajeStock.className = "mensajeStock"
@@ -131,39 +134,41 @@ botonesRest.forEach(botonR => {
   botonR.addEventListener("click", decrementar);
 });
 
-//SUMAR Y RESTAR
+// FUNCIONES SUMAR Y RESTAR
 
-function incrementar(e) {
-  const idInput = e.currentTarget.id.substr(-3);
-  cant = document.getElementById(`cantidad${idInput}`).value
+
+function incrementar() {
+  const productoId=this.getAttribute('data-producto')
+  cant = document.getElementById(`cantidad${productoId}`).value
   cant ++
-  document.getElementById(`cantidad${idInput}`).value = cant
-  // console.log(cant,idInput)
+  document.getElementById(`cantidad${productoId}`).value = cant
 }
 
-function decrementar(e) {
-  const idInput = e.currentTarget.id.substr(-3);
-  cant = document.getElementById(`cantidad${idInput}`).value
+function decrementar() {
+  const productoId=this.getAttribute('data-producto')
+  cant = document.getElementById(`cantidad${productoId}`).value
   if (cant> 0) {cant --
-  document.getElementById(`cantidad${idInput}`).value = cant
-  // console.log(cant, idInput)
+  document.getElementById(`cantidad${productoId}`).value = cant
   }
 }
 
 
-function agregarProducto(e) {
-const idBoton = e.currentTarget.id.substr(-3);
-const cantidad = parseInt(document.getElementById(`cantidad${idBoton}`).value)
+//FUNCION PARA AGREGAR PRODUCTO (VALIDO INPUT)
+
+function agregarProducto() {
+const productoId = this.getAttribute('data-producto')     
+const cantidad = parseInt(document.getElementById(`cantidad${productoId}`).value)
 if (cantidad != 0 && cantidad != "") {
-const productoAgregado = productos.find(producto => producto.id === idBoton)
-agregar(productoAgregado,cantidad)
+const productoParaAgregar = getProducto(productoId)
+agregar(productoParaAgregar,cantidad)
+
 }
 else {
-  document.getElementById(`mensaje${idBoton}`).innerText = "Por favor, seleccione cantidad"
+  document.getElementById(`mensaje${productoId}`).innerText = "Por favor, seleccione cantidad"
 }
 }
 
-
+//TOMAR VALORES PARA AGREGAR AL CARRITO
 
 function agregar(producto, cantidad) {
   document.getElementById(`cantidad${producto.id}`).value = 0
@@ -174,23 +179,30 @@ function agregar(producto, cantidad) {
   }
   else {
     if (producto.stock >= cantidad && producto.stock - cantidad >= 0) {
-      sumar(producto, cantidad)
+      sumar(producto, cantidad)    //valido stock
     }
     else {
         document.getElementById(`mensaje${producto.id}`).innerText = `Stock insuficiente, solo quedan: ${producto.stock} unidades`
 
     }
-    return producto.stock, totalCarrito, carrito
+    return producto.stock, carrito
   }
 }
 
 
+//BUSCAR PRODUCTO EN MI ARRAY
+function getProducto(productoId) { 
+  const productoParaAgregar = productos.find(producto => producto.id === productoId)
+  return productoParaAgregar
+}
+
+
+//FUNCION SUMAR AL CARRITO
 function sumar(producto, cantidad) {
   producto.stock -= cantidad
   producto.compra += cantidad
   carrito.push(producto);
   localStorage.setItem('carrito', JSON.stringify(carrito));
-  totalCarrito += sumarProducto(producto.precio, cantidad)
 }
 
 
