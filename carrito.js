@@ -106,7 +106,6 @@ function reiniciar() {
       text: 'Tu carrito está vacío',
       icon: 'success',
       timer: 1700,
-      className: "alerta"
     
     })
 }

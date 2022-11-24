@@ -107,15 +107,13 @@ productos.forEach((producto)=>{
   mensajeStock.setAttribute("id", `mensaje${producto.id}`)
 
   content4.append(quantity,comprar,mensajeStock)
-
-  
-
   content.append(content2, content3,content4)
   // content.append(content1)
   contenedor.append(content)
 })
 
 
+//BOTONES
 
 let botones = document.querySelectorAll(".producto-agregar");
 
@@ -133,6 +131,7 @@ botonesRest.forEach(botonR => {
   botonR.addEventListener("click", decrementar);
 });
 
+//SUMAR Y RESTAR
 
 function incrementar(e) {
   const idInput = e.currentTarget.id.substr(-3);
@@ -192,7 +191,6 @@ function sumar(producto, cantidad) {
   carrito.push(producto);
   localStorage.setItem('carrito', JSON.stringify(carrito));
   totalCarrito += sumarProducto(producto.precio, cantidad)
-  console.log(carrito)
 }
 
 
