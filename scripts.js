@@ -35,6 +35,7 @@ class Producto {
   }
 }
 
+<<<<<<< HEAD
 const cafe1 = new Producto(
   "001",
   "./img/cafe1.png",
@@ -126,6 +127,10 @@ const molinillo = new Producto(
   0
 );
 const termo1 = new Producto("009", "img/termo1.png", "Termo", "Wilford&Sons","Portatil", 10000, 4, 0)
+=======
+//TRAIGO MIS PRODUCTOA DEJ JSON /ME FALTA GUARDAR LA BASE DE DATOS EN LOCALSTORAGE PARA q me sigan funcionando las validaciones!
+const BDD = [];
+>>>>>>> 2ccb0e526030eff2acf457c9b75b4ded66b9b43a
 
 
 const BDD = JSON.parse(localStorage.getItem("productos")) || [
