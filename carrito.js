@@ -1,6 +1,7 @@
 
 //si existe algo en el local storage lo recupera, sino es un array vacío
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+let productos = JSON.parse(localStorage.getItem('productos')) || []; //Lo Traigo para hacer modificaciones del stock
 let contenedorCarrito = document.getElementById("carritoContainer")
 let totalCarrito = 0
 
@@ -100,6 +101,8 @@ function reiniciar() {
     carrito = [];
     totalCarrito = 0;
     localStorage.setItem('carrito', JSON.stringify(carrito));
+    localStorage.removeItem('productos')
+
     cargarCarrito()   
     actualizarTotal()
 
@@ -126,22 +129,26 @@ function disminuirCantidad() {
   modificarProducto(productoId)
 }
 
+//MODI
 function modificarProducto(productoId) {
   const productoModificar = getProducto(productoId)
     const nuevaCantidad=productoModificar.compra-1
     nuevaCantidad > 0?modificarCantidadDelCarrito(productoId,nuevaCantidad):eliminarDelCarrito(productoId)
+    
     return
   }
 
 
-function modificarCantidadDelCarrito(productoId,nuevaCantidad) {
-      
+function modificarCantidadDelCarrito(productoId,nuevaCantidad) {     
   const index=carrito.findIndex((element) => element.id ===productoId)
   if(carrito?.[index]){
     carrito[index].compra=nuevaCantidad
     localStorage.setItem('carrito', JSON.stringify(carrito));
     cargarCarrito()
     actualizarTotal()
+    actualizarStock(productoId)
+    
+    
   }
    
 }
@@ -159,6 +166,17 @@ function eliminarDelCarrito(productoId) {
   localStorage.setItem('carrito', JSON.stringify(carrito));
   cargarCarrito()
   actualizarTotal()
-  
+  actualizarStock(productoId)
 }
 
+//NO ME ESTA FUNCIONANDO PARA ACTUALIZAR EL STOCK DESDE EL CARRITOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+function actualizarStock (productoId){
+  const index = productos.findIndex((element) => element.id === productoId)
+  if(productos?.[index]){
+    productos[index].stock ++
+    productos[index].compra --
+    localStorage.setItem('productos', JSON.stringify(productos));
+
+console.log(productos)
+  }
+}

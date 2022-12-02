@@ -10,7 +10,6 @@ let numeroCarrito = carrito.length
 let contenedorCarrito = document.getElementById("cart_menu_num")
 contenedorCarrito.innerText = numeroCarrito.toString()
 
- 
 //*************************************************************
 //*********************TIENDA*****************************
 
@@ -36,32 +35,118 @@ class Producto {
   }
 }
 
-//TRAIGO MIS PRODUCTOA DEJ JSON
-const BDD = [];
+const cafe1 = new Producto(
+  "001",
+  "./img/cafe1.png",
+  "Juan Valdez Premium",
+  "Juan Valdez",
+  "básico",
+  2500,
+  20,
+  0
+);
+const cafe2 = new Producto(
+  "002",
+  "img/cafe2.jpg",
+  "Venita Selezionse Merida",
+  "Venita",
+  "100% Arábica",
+  5500,
+  5,
+  0
+);
+const cafe3 = new Producto(
+  "003",
+  "img/cafe3.png",
+  "Giulis-Café de finca",
+  "Giulis",
+  "intenso",
+  4000,
+  5,
+  0
+);
+const cafe4 = new Producto(
+  "004",
+  "img/cafe4.png",
+  "Café Brasil Santos Bourbon",
+  "Torremolinos",
+  "100% Arábica",
+  3200,
+  5,
+  0
+);
+const cafe5 = new Producto(
+  "005",
+  "img/cafe5.png",
+  "Café Quindio Gourmet",
+  "Quindio",
+  "100% colombiano",
+  3500,
+  5,
+  0
+);
+const cafe6 = new Producto(
+  "006",
+  "img/cafe6.png",
+  "Café Kaldi",
+  "Kaldi",
+  "Café&Cacao",
+  5500,
+  5,
+  0
+);
+const cafetera1 = new Producto(
+  "006",
+  "img/cafeteraMoka.png",
+  "Cafetera Italia",
+  "Bialletti",
+  "Moka",
+  30000,
+  2,
+  0
+);
+const cafetera2 = new Producto(
+  "007",
+  "img/cafeteraEmbolo.png",
+  "Cafetera de Embolo",
+  "Bodum",
+  "prensa francesa",
+  20000,
+  3,
+  0
+);
+const molinillo = new Producto(
+  "008",
+  "img/Molinillo.png",
+  "Molinillo",
+  "Peugeot",
+  "estilo antiguo",
+  15000,
+  2,
+  0
+);
+const termo1 = new Producto("009", "img/termo1.png", "Termo", "Wilford&Sons","Portatil", 10000, 4, 0)
 
-fetch('./productos.json')
-.then ((response) => response.json())
-.then ((data) => {
-    data.forEach((elemento) =>{
-        BDD.push(elemento)
-    })
-})
 
-// console.log(BDD)
+const BDD = JSON.parse(localStorage.getItem("productos")) || [
+  cafe1,
+  cafe2,
+  cafe3,
+  cafe4,
+  cafe5,
+  cafetera1,
+  cafetera2,
+  molinillo,
+  termo1
+];
 
 
 const traerProductos = () => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => resolve(BDD), 1000);
+    setTimeout(() => resolve(BDD), 800);
   });
 };
 
-
-traerProductos()
-    .then((res) => {
-        productos = res;
-        renderizar(productos)
-    })
 
     
 let productos = []
@@ -156,7 +241,12 @@ botonesRest.forEach((botonR) => {
   botonR.addEventListener("click", decrementar);
 });
 }
-
+traerProductos() 
+    .then((res) => {
+        productos = res;
+        renderizar(productos)
+        console.log(productos)
+    })
 
 
 // FUNCIONES SUMAR Y RESTAR
@@ -232,6 +322,8 @@ function sumar(producto, cantidad) {
   producto.compra += cantidad;
   carrito.push(producto);
   localStorage.setItem("carrito", JSON.stringify(carrito));
+  localStorage.setItem("productos",JSON.stringify(productos))
+  console.log(productos)
   actualizarNumeroCarrito()
 }
 
