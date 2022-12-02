@@ -166,10 +166,10 @@ function eliminarDelCarrito(productoId) {
   localStorage.setItem('carrito', JSON.stringify(carrito));
   cargarCarrito()
   actualizarTotal()
-  actualizarStock(productoId)
+  
 }
 
-//NO ME ESTA FUNCIONANDO PARA ACTUALIZAR EL STOCK DESDE EL CARRITOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+//ME FALTA SOLO ACTUALIZAR EL STOCK CUANDO LO ELIMINA DEL CARRO
 function actualizarStock (productoId){
   const index = productos.findIndex((element) => element.id === productoId)
   if(productos?.[index]){
@@ -180,3 +180,4 @@ function actualizarStock (productoId){
 console.log(productos)
   }
 }
+
