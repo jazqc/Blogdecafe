@@ -36,7 +36,7 @@ class Producto {
   }
 }
 
-//TRAIGO MIS PRODUCTOA DEJ JSON
+//TRAIGO MIS PRODUCTOA DEJ JSON /ME FALTA GUARDAR LA BASE DE DATOS EN LOCALSTORAGE PARA q me sigan funcionando las validaciones!
 const BDD = [];
 
 fetch('./productos.json')
