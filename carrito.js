@@ -69,6 +69,7 @@ totalCarrito += producto.compra * producto.precio
 
 })
 
+
 //BOTONES DISMINUIR Y ELIMINAR
 
 const botonesDisminuir = document.querySelectorAll(".producto-disminuir");

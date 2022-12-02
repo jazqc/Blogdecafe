@@ -1,185 +1,263 @@
+//*************************************************************
+//*********************GLOBALES*****************************
 
-//EN DESARROLLO!!
+let cantidad = 0;
+let boton = "";
+let cant = 0;
+const carrito = JSON.parse(localStorage.getItem("carrito")) || []; //si existe algo en el local storage lo recupera, sino es un array vacío
+const sumarProducto = (a, b) => a * b;
+let numeroCarrito = carrito.length
+let contenedorCarrito = document.getElementById("cart_menu_num")
+contenedorCarrito.innerText = numeroCarrito.toString()
+
+ 
+//*************************************************************
+//*********************TIENDA*****************************
+
+class Producto {
+  constructor(id, imagen, nombre, marca, tipo, precio, stock, compra) {
+    this.id = id;
+    this.imagen = imagen;
+    this.nombre = nombre;
+    this.marca = marca;
+    this.tipo = tipo;
+    this.precio = parseFloat(precio);
+    this.stock = parseInt(stock);
+    this.compra = parseInt(compra);
+  }
+
+  sumarStock(cantidad) {
+    this.stock += parseInt(cantidad);
+    return this.stock;
+  }
+  oferta(porcentaje) {
+    this.precio = this.precio - (this.precio / 100) * porcentaje;
+    return this.precio;
+  }
+}
+
+//TRAIGO MIS PRODUCTOA DEJ JSON
+const BDD = [];
+
+fetch('./productos.json')
+.then ((response) => response.json())
+.then ((data) => {
+    data.forEach((elemento) =>{
+        BDD.push(elemento)
+    })
+})
+
+// console.log(BDD)
+
+
+const traerProductos = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(BDD), 1000);
+  });
+};
+
+
+traerProductos()
+    .then((res) => {
+        productos = res;
+        renderizar(productos)
+    })
+
+    
+let productos = []
+
+//CONTENEDOR
+let contenedor = document.getElementById("productosContainer");
+
+function renderizar(productos) {
+
+productos.forEach((producto) => {
+  let content = document.createElement("div");
+  content.className = "producto row";
+
+  let content2 = document.createElement("div");
+  content2.className = "imagen-producto col-12 col-md-4";
+  content2.innerHTML = `
+          <img src="${producto.imagen}">`;
+
+  let content3 = document.createElement("div");
+  content3.className = "nombre-producto col-12 col-md-4";
+  content3.innerHTML = `
+          <h2>${producto.nombre}</h2>
+          <h3>${producto.marca}</h3>
+          <h3>${producto.tipo}</h3>
+  `;
+  let content4 = document.createElement("div");
+  content4.className = "col-12 col-md-4";
+  content4.innerHTML = `
+  <h2>$${producto.precio}</h2>`;
+
+  let quantity = document.createElement("div");
+  let botonRest = document.createElement("button");
+  botonRest.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-minus" width="60" height="60" viewBox="0 0 24 24" stroke-width="1.5" stroke="#784d3c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <circle cx="12" cy="12" r="9" />
+  <line x1="9" y1="12" x2="15" y2="12" />
+</svg>`;
+  botonRest.className = "rest";
+  botonRest.setAttribute("data-producto", producto.id);
+
+  let valor = document.createElement("input");
+  valor.className = "valorCantidad";
+  valor.setAttribute("id", `cantidad${producto.id}`);
+  valor.value = 0;
+
+  let botonPlus = document.createElement("button");
+  botonPlus.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus" width="60" height="60" viewBox="0 0 24 24" stroke-width="1.5" stroke="#784d3c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <circle cx="12" cy="12" r="9" />
+  <line x1="9" y1="12" x2="15" y2="12" />
+  <line x1="12" y1="9" x2="12" y2="15" />
+</svg>`;
+  botonPlus.className = "plus";
+  // botonPlus.setAttribute("id", `plus${producto.id}`)
+  botonPlus.setAttribute("data-producto", producto.id);
+  quantity.append(botonRest, valor, botonPlus);
+
+  let comprar = document.createElement("button");
+  comprar.className = "boton boton--terciario producto-agregar";
+  comprar.setAttribute("id", `comprar${producto.id}`);
+  comprar.setAttribute("data-producto", producto.id);
+
+  let mensajeStock = document.createElement("div");
+  mensajeStock.className = "mensajeStock";
+  mensajeStock.setAttribute("id", `mensaje${producto.id}`);
+
+  content4.append(quantity, comprar, mensajeStock);
+  content.append(content2, content3, content4);
+  // content.append(content1)
+  contenedor.append(content);
+});
 
 
 
-let totalCarrito = 0 
-const carrito = [];
+//BOTONES
 
-class Curso {
-    constructor(nombre, profesor, fecha, precio, cupos, inscriptos) {
-        this.nombre = nombre;
-        this.profesor = profesor;
-        this.fecha = fecha;
-        this.precio = parseFloat(precio);
-        this.cupos = parseInt(cupos);
-        this.inscriptos = inscriptos;
+let botones = document.querySelectorAll(".producto-agregar");
+
+botones.forEach((boton) => {
+  boton.addEventListener("click", agregarProducto);
+});
+
+let botonesPlus = document.querySelectorAll(".plus");
+botonesPlus.forEach((botonP) => {
+  botonP.addEventListener("click", incrementar);
+});
+
+let botonesRest = document.querySelectorAll(".rest");
+botonesRest.forEach((botonR) => {
+  botonR.addEventListener("click", decrementar);
+});
+}
+
+
+
+// FUNCIONES SUMAR Y RESTAR
+
+function incrementar() {
+  const productoId = this.getAttribute("data-producto");
+  cant = document.getElementById(`cantidad${productoId}`).value;
+  cant++;
+  document.getElementById(`cantidad${productoId}`).value = cant;
+}
+
+function decrementar() {
+  const productoId = this.getAttribute("data-producto");
+  cant = document.getElementById(`cantidad${productoId}`).value;
+  if (cant > 0) {
+    cant--;
+    document.getElementById(`cantidad${productoId}`).value = cant;
+  }
+}
+
+//FUNCION PARA AGREGAR PRODUCTO (VALIDO INPUT)
+
+function agregarProducto() {
+  const productoId = this.getAttribute("data-producto");
+  const cantidad = parseInt(
+    document.getElementById(`cantidad${productoId}`).value
+  );
+  if (cantidad != 0 && cantidad != "") {
+    const productoParaAgregar = getProducto(productoId);
+    agregar(productoParaAgregar, cantidad);
+  } else {
+    document.getElementById(`mensaje${productoId}`).innerText =
+      "Por favor, seleccione cantidad";
+  }
+}
+
+//TOMAR VALORES PARA AGREGAR AL CARRITO
+
+function agregar(producto, cantidad) {
+  document.getElementById(`cantidad${producto.id}`).value = 0;
+  document.getElementById(`mensaje${producto.id}`).innerText = "";
+  if (
+    carrito.includes(producto) &&
+    producto.stock >= cantidad &&
+    producto.stock - cantidad >= 0
+  ) {
+    carrito.splice(producto);
+    sumar(producto, cantidad); //si ya lo tengo en el carrito, actualizo la cantidad
+  } else {
+    if (producto.stock >= cantidad && producto.stock - cantidad >= 0) {
+      sumar(producto, cantidad);
+       //valido stock
+    } else {
+      document.getElementById(
+        `mensaje${producto.id}`
+      ).innerText = `Stock insuficiente, solo quedan: ${producto.stock} unidades`;
     }
-    oferta(porcentaje) {
-        this.precio = this.precio - (this.precio / 100 * porcentaje)
-        return this.precio
-
-    };
+    return producto.stock, carrito;
+  }
 }
 
-const curso1 = new Curso("Técnicas de extracción de café", "Juliana Lopez", "15/11/2022", 2500, 10, [])
-const curso2 = new Curso("Técnicas de extracción de café", "Juliana Lopez", "10/01/2023", 2500, 10, [])
-const curso3 = new Curso("Taller para tostar y moler granos", "Felipe Carmona", "10/11/2022", 2000, 10, [])
-const curso4 = new Curso("Taller para tostar y moler granos", "Felipe Carmona", "03/01/2023", 2000, 10, []);
+//BUSCAR PRODUCTO EN MI ARRAY
+function getProducto(productoId) {
+  const productoParaAgregar = productos.find(
+    (producto) => producto.id === productoId
+  );
+  return productoParaAgregar;
+}
 
+//FUNCION SUMAR AL CARRITO
+function sumar(producto, cantidad) {
+  producto.stock -= cantidad;
+  producto.compra += cantidad;
+  carrito.push(producto);
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarNumeroCarrito()
+}
 
+function actualizarNumeroCarrito() {
+  numeroCarrito = carrito.length
+  contenedorCarrito.innerText = numeroCarrito.toString()
+}
 
-
-do {
-    let curso = Number(prompt("seleccione curso 1-Técnicas de extracción de café o curso 2-Taller para tostar y moler granos"))
-    cuposCurso = 0
-    cupos = 0
-    switch (curso) {
-        case 1:
-            reserva = prompt("seleccione entre a-15/11/2022 o b-10/01/2023").toLowerCase()
-            switch (reserva) {
-
-                case "a":
-                    cupos = prompt("Cantidad de cupos: ")
-                    if (curso1.cupos == 0) {
-                        alert("No quedan cupos en este curso")
-                    }
-                    else {
-                        while (curso1.cupos > 0)
-                            if (cupos <= curso1.cupos && cupos > 0) {
-                                inscripcion(cupos, curso1)
-                                break;
-                            }
-                            else if (cupos > curso1.cupos && cupos > 0) {
-                                respuesta = prompt("no disponemos de esa cantidad de cupos, quiere reservar menos lugares? si/no")
-                                if (respuesta.toLowerCase() == "si") {
-                                    cupos = prompt("cantidad de cupos: ")
-                                }
-                                else {
-                                    break;
-                                }
-                            }
-                        break;
-                    }
-                    break;
-
-                case "b":
-                    cupos = prompt("Cantidad de cupos: ")
-                    if (curso2.cupos == 0) {
-                        alert("No quedan cupos en este curso")
-                    }
-                    else {
-                        while (curso2.cupos > 0)
-                            if (cupos <= cupos2.cupos && cupos > 0) {
-                                inscripcion(cupos, curso2)
-                                break;
-                            }
-                            else if (cupos > curso2.cupos && cupos > 0) {
-                                respuesta = prompt("no disponemos de esa cantidad de cupos, quiere reservar menos lugares?si/no")
-                                if (respuesta.toLowerCase() == "si") {
-                                    cupos = prompt("cantidad de cupos: ")
-                                }
-                                else {
-                                    break;
-                                }
-                            }
-                            else {
-                                break;
-                            }
-                    }
-                default: alert("Opción inválida")
-                    break;
-            }
-            break;
-        case 2:
-            reserva = prompt("seleccione entre a-10/11/2022 o b-03/01/2023").toLowerCase()
-
-            switch (reserva) {
-
-                case "a":
-                    cupos = prompt("Cantidad de cupos: ")
-                    if (curso3.cupos == 0) {
-                        alert("No quedan cupos en este curso")
-                    }
-                    else {
-                        while (curso3.cupos > 0)
-                            if (cupos <= curso3.cupos && cupos > 0) {
-                                inscripcion(cupos, curso3)
-                                break;
-                            }
-                            else if (cupos > curso3.cupos && cupos > 0) {
-                                respuesta = prompt("no disponemos de esa cantidad de cupos, quiere reservar menos lugares?si/no")
-                                if (respuesta.toLowerCase() == "si") {
-                                    cupos = prompt("cantidad de cupos: ")
-                                }
-                                else {
-                                    break;
-                                }
-                            }
-                            else {
-                                break;
-                            }
-                        break;
-                    }
-                    break;
-
-                case "b":
-                    cupos = prompt("Cantidad de cupos: ")
-                    if (curso4.cupos == 0) {
-                        alert("No quedan cupos en este curso")
-                    }
-                    else {
-                        while (curso4.cupos > 0)
-                            if (cupos <= curso4.cupos && cupos > 0) {
-                                inscripcion(cupos, curso4)
-                            }
-                            else if (cupos > curso4.cupos && cupos > 0) {
-                                respuesta = prompt("no disponemos de esa cantidad de cupos, quiere reservar menos lugares?si/no")
-                                if (respuesta.toLowerCase() == "si") {
-                                    cupos = prompt("cantidad de cupos: ")
-                                }
-                                else {
-                                    break;
-                                }
-                            }
-                            else {
-                                break;
-                            }
-
-                        break;
-                    }
-                default: alert("Opción inválida")
-                    break;
-            }
-
-            break;
-        default: alert("Ese curso no existe, le recomendamos que visite nuestra tienda de productos")
-            break;
+let contenedorFrase = document.getElementById("quote")
+function getQuote() {
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '26921d54d6mshf87a255fae13fd3p141fd3jsn324bc2b8557e',
+      'X-RapidAPI-Host': 'quotes-villa.p.rapidapi.com'
     }
-    respuesta1 = prompt("Le gustaría inscribirse en más cursos?").toLocaleLowerCase()
-}
-while (respuesta1 == "si")
-if (respuesta1 == "no") {
-    fin()
-}
+  };
+  
+  fetch('https://quotes-villa.p.rapidapi.com/quotes/art', options)
+    .then(response => response.json())
+    // .then(data => console.log(data))
+    .then(data => contenedorFrase.innerHTML = `<p class="typed-out"">${data[Math.floor(Math.random() * data.length)].text}</p>`)
+    .catch(err => console.error(err))
 
-
-function inscripcion(cantidad, curso) {
-    let persona = prompt("Ingrese su nombre y apellido")
-    const newInscripto = (persona)
-    curso.inscriptos.push(newInscripto)
-    totalCarrito += curso.precio * cantidad
-    curso.cupos -= cantidad
-    carrito.push(curso);
-    cupos = 0;
-    alert("Inscripción realizada con éxito")
-    return curso.inscriptos, carrito, totalCarrito
+    
 }
 
+getQuote()
 
-
-function fin() {
-    console.log("total carrito: " + totalCarrito)
-    console.log(carrito)
-    console.log("Detalle de inscriptos por curso: " + curso1.inscriptos, curso2.inscriptos, curso3.inscriptos, curso4.inscriptos)
-}

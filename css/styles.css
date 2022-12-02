@@ -43,7 +43,7 @@ h1 {
 }
 
 h2 {
-    font-size: 4rem;
+    font-size: 6rem;
 }
 
 h3 {
@@ -82,7 +82,8 @@ a:hover {
 /**Header**/
 .header {
     background-image: url(../img/banner.jpg);
-    height: 60rem;
+    min-height: 60rem;
+    max-height: fit-content;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center; /**para que si se achica la pantalla se siga viendo el centro de la imagen, se puede decidir con left o right que parte de la imagen mostrar**/
@@ -115,6 +116,7 @@ a:hover {
 .logo__bold {
 font-weight: 700;
 }
+
 h4.tienda {
     font-size: 3.5rem;
     text-align: center;
@@ -125,10 +127,28 @@ h4.tienda {
     font-size: 1.8rem;
     color: var(--blanco);      
 }
-div.carrito{
-    display: block;
+div.carrito a{
     text-align: center;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+
 }
+  
+  #cart_menu_num {
+    position: absolute;
+    top: 0;
+    left: 70%;
+    background: #4D3C78;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 2px;
+  }
 @media (min-width: 768px) {
     .navegacion {
         display: flex;
@@ -326,7 +346,7 @@ div.producto, .productoEnCarrito {
 .producto h2 {
     text-align: center;
     margin: auto;
-    margin-top: 3rem;
+    margin-top: 2rem;
     vertical-align: middle;
 }
 }
@@ -342,8 +362,6 @@ div.producto, .productoEnCarrito {
     margin-top: 1rem;
 }
 
-
-/* EQUIPARAR LOS TAMAÑOS DE IMAGENES */
 div .producto img {
     max-width: 100%;
     height: 30rem;
@@ -377,6 +395,13 @@ div .producto img {
     font-size: 2rem;
     font-weight: bold;
     border-radius: 0.5rem;
+}
+div.nombre-producto h2 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+div.nombre-producto h3 {
+    font-size: 3rem;
 }
 /* CARRITO */
 
@@ -416,3 +441,36 @@ div .producto img {
     }
 
 }
+div.quote {
+    background-color:var(--primario);
+    opacity: 0.8;
+    margin: auto;
+    margin-top: 5%;
+    box-sizing: border-box;
+    max-width: 87rem;
+    display: inline-block;
+
+}
+.quote, p {
+    font-size: 2rem;
+    text-align: center;
+    padding: 1.5rem;
+    margin:auto;  
+}
+.typed-out, p{
+    overflow: hidden;
+        animation: 
+          typing 1s steps(50, end) forwards,
+          blinking 0.2s infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blinking {
+      from { border-color: transparent; }
+      to { border-color: orange;}
+    }
+/* 
+REVISAR LA ANIMACION */
+
