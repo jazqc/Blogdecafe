@@ -5,6 +5,7 @@ let cantidad = 0;
 let boton = "";
 let cant = 0;
 const carrito = JSON.parse(localStorage.getItem("carrito")) || []; //si existe algo en el local storage lo recupera, sino es un array vacío
+console.log(carrito)
 const sumarProducto = (a, b) => a * b;
 let numeroCarrito = carrito.length
 let contenedorCarrito = document.getElementById("cart_menu_num")
@@ -286,7 +287,7 @@ function agregarProducto() {
   }
 }
 
-//TOMAR VALORES PARA AGREGAR AL CARRITO(valido stock y si ya lo tengo en el carrito)
+//TOMAR VALORES PARA AGREGAR AL CARRITO(valido stock y si ya lo tengo en el carrito) ESTOY TRABAJANDO PARA Q FUNCIONE CUANDO ACTUALIZO LA TIENDA YA QUE NO ME LO ESTÁ SUPRIMIENDO DEL CARRITO, PROBAR carrito.includes((element) => element.id ===producto.id) &&
 
 function agregar(producto, cantidad) {
   document.getElementById(`cantidad${producto.id}`).value = 0;
@@ -296,7 +297,9 @@ function agregar(producto, cantidad) {
     producto.stock >= cantidad &&
     producto.stock - cantidad >= 0
   ) {
-    carrito.splice(producto);
+    const index=carrito.findIndex((element) => element.id ===producto.id) 
+    console.log(index)
+    carrito.splice(index,1);
     sumar(producto, cantidad); //si ya lo tengo en el carrito, actualizo la cantidad
   } else {
     if (producto.stock >= cantidad && producto.stock - cantidad >= 0) {
@@ -326,7 +329,6 @@ function sumar(producto, cantidad) {
   carrito.push(producto);
   localStorage.setItem("carrito", JSON.stringify(carrito));
   localStorage.setItem("productos",JSON.stringify(productos))
-  console.log(productos)
   actualizarNumeroCarrito()
 }
 
@@ -335,6 +337,8 @@ function actualizarNumeroCarrito() {
   numeroCarrito = carrito.length
   contenedorCarrito.innerText = numeroCarrito.toString()
 }
+
+
 
 //*************************************************************
 //*********************CONTENEDOR PRINCIPAL HERO*****************************

@@ -3,13 +3,15 @@
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 let productos = JSON.parse(localStorage.getItem('productos')) || []; //Lo Traigo solo para hacer modificaciones del stock, esto funcionaría como una base de datos para que si saca productos del carrito impacte en el array de productos
 let contenedorCarrito = document.getElementById("carritoContainer")
+contenedorCarrito.innerHTML = "" 
 let totalCarrito = 0
 
-
+cargarCarrito()
 function cargarCarrito() {
+contenedorCarrito.innerHTML = ""
 carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 totalCarrito = 0;
-contenedorCarrito.innerHTML = "" 
+ 
 carrito.forEach((producto)=>{
   let contentC = document.createElement("div")
   contentC.className="productoEnCarrito"
@@ -58,7 +60,7 @@ carrito.forEach((producto)=>{
   <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
 </svg>`
 eliminar.className = "rest producto-eliminar"
-disminuir.setAttribute("data-producto", producto.id)
+eliminar.setAttribute("data-producto", producto.id)
   eliminar.setAttribute("id", `eliminar${producto.id}`)
 
   contenedorCarrito.append(contentC)
@@ -98,9 +100,8 @@ const vaciarCarrito = document.getElementById("vaciar")
 vaciarCarrito.addEventListener("click", reiniciar)
 
 function reiniciar() {
-    carrito = [];
     totalCarrito = 0;
-    localStorage.setItem('carrito', JSON.stringify(carrito));
+    localStorage.removeItem('carrito');
     localStorage.removeItem('productos')
 
     cargarCarrito()   
@@ -123,30 +124,31 @@ function getProducto(productoId) {
 }
 
 
-//Botones disminuir y eliminar
+//BOTONES DISMINUIR
 function disminuirCantidad() {
   const productoId=this.getAttribute('data-producto')
   modificarProducto(productoId)
 }
 
-//MODI
+//DESMINUYO O ELIMINO SI TENGO SOLO 1 UNIDAD
 function modificarProducto(productoId) {
   const productoModificar = getProducto(productoId)
     const nuevaCantidad=productoModificar.compra-1
     nuevaCantidad > 0?modificarCantidadDelCarrito(productoId,nuevaCantidad):eliminarDelCarrito(productoId)
-    cargarCarrito()
     return
   }
 
 
+  // IMPORTANTE, ME FALTA RESOLVER LA FUNCION PARA QUE CUANDO QUEDE 0 EN EL CARRITO EN PRODUCTOS TMB PORQUE ME QUEDA EN 1
 function modificarCantidadDelCarrito(productoId,nuevaCantidad) {     
   const index=carrito.findIndex((element) => element.id ===productoId)
   if(carrito?.[index]){
     carrito[index].compra=nuevaCantidad
+    carrito[index].stock++
     localStorage.setItem('carrito', JSON.stringify(carrito));
     cargarCarrito()
     actualizarTotal()
-    actualizarStock(productoId)
+    actualizarStock(productoId,nuevaCantidad)
     
     
   }
@@ -154,31 +156,38 @@ function modificarCantidadDelCarrito(productoId,nuevaCantidad) {
 }
 
 function eliminarProducto() {
-
   const productoId=this.getAttribute('data-producto')
+  const cantCompra = Number(0)
+  actualizarStock(productoId,cantCompra)
   eliminarDelCarrito(productoId)
+  
+ 
 }
 
 
 function eliminarDelCarrito(productoId) {
   const index=carrito.findIndex((element) => element.id ===productoId)
+  console.log(index)
+  const cantCompra = Number(carrito[index].compra)
   carrito.splice(index,1)
   localStorage.setItem('carrito', JSON.stringify(carrito));
-  actualizarStock(productoId)
+  if (carrito.length ===0) {
+    reiniciar()
+  }
+  else {
+  actualizarStock(productoId,cantCompra)
   cargarCarrito()
+  }
   actualizarTotal()
-  
 }
 
-//ME FALTA SOLO ACTUALIZAR EL STOCK CUANDO LO ELIMINA DEL CARRO
-function actualizarStock (productoId){
+
+function actualizarStock (productoId,cantCompra){
   const index = productos.findIndex((element) => element.id === productoId)
   if(productos?.[index]){
-    productos[index].stock ++
-    productos[index].compra --
+    productos[index].stock += +cantCompra
+    productos[index].compra = cantCompra
     localStorage.setItem('productos', JSON.stringify(productos));
-
-console.log(productos)
   }
 }
 
