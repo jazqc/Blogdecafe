@@ -339,6 +339,14 @@ div.producto, .productoEnCarrito {
     border: solid 0.05rem;
     border-color: gray;
     text-align: center;
+
+}
+div.producto {
+    transition: all 0.2s;
+}
+div.producto:hover{
+    cursor: pointer;
+    transform: scale(1.01);
 }
 
 @media (min-width: 768px) {

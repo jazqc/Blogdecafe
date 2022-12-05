@@ -127,7 +127,7 @@ const molinillo = new Producto(
 );
 const termo1 = new Producto("009", "img/termo1.png", "Termo", "Wilford&Sons","Portatil", 10000, 4, 0)
 
-
+//esto de traerlo del localstorage lo hago solamento porque estoy emulando un endpoint para que me funcione la validación de stock cuando reinicio la pagina, de otra forma lo que pasa es que se me reinicia el stock (por ejemplo si los traigo por fetch del json). Se que no es la manera pero fue l solución que le encontré para que sea más real con las herramientas q tenemos 
 const BDD = JSON.parse(localStorage.getItem("productos")) || [
   cafe1,
   cafe2,
@@ -147,6 +147,12 @@ const traerProductos = () => {
   });
 };
 
+traerProductos() 
+    .then((res) => {
+        productos = res;
+        renderizar(productos)
+        console.log(productos)
+    })
 
     
 let productos = []
@@ -241,12 +247,9 @@ botonesRest.forEach((botonR) => {
   botonR.addEventListener("click", decrementar);
 });
 }
-traerProductos() 
-    .then((res) => {
-        productos = res;
-        renderizar(productos)
-        console.log(productos)
-    })
+
+
+
 
 
 // FUNCIONES SUMAR Y RESTAR
@@ -267,7 +270,7 @@ function decrementar() {
   }
 }
 
-//FUNCION PARA AGREGAR PRODUCTO (VALIDO INPUT)
+//FUNCION PARA AGREGAR PRODUCTO (valido input de cantidad antes)
 
 function agregarProducto() {
   const productoId = this.getAttribute("data-producto");
@@ -283,7 +286,7 @@ function agregarProducto() {
   }
 }
 
-//TOMAR VALORES PARA AGREGAR AL CARRITO
+//TOMAR VALORES PARA AGREGAR AL CARRITO(valido stock y si ya lo tengo en el carrito)
 
 function agregar(producto, cantidad) {
   document.getElementById(`cantidad${producto.id}`).value = 0;
@@ -327,11 +330,15 @@ function sumar(producto, cantidad) {
   actualizarNumeroCarrito()
 }
 
+//ACTUALIZO EL NÚMERO DEL CARRITO X CANTIDAD DE PRODUCTOS
 function actualizarNumeroCarrito() {
   numeroCarrito = carrito.length
   contenedorCarrito.innerText = numeroCarrito.toString()
 }
 
+//*************************************************************
+//*********************CONTENEDOR PRINCIPAL HERO*****************************
+//Consumo API de frases con función que randomiza la frase para cada sesión.
 let contenedorFrase = document.getElementById("quote")
 function getQuote() {
   const options = {

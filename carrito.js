@@ -1,7 +1,7 @@
 
 //si existe algo en el local storage lo recupera, sino es un array vacío
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-let productos = JSON.parse(localStorage.getItem('productos')) || []; //Lo Traigo para hacer modificaciones del stock
+let productos = JSON.parse(localStorage.getItem('productos')) || []; //Lo Traigo solo para hacer modificaciones del stock, esto funcionaría como una base de datos para que si saca productos del carrito impacte en el array de productos
 let contenedorCarrito = document.getElementById("carritoContainer")
 let totalCarrito = 0
 
@@ -134,7 +134,7 @@ function modificarProducto(productoId) {
   const productoModificar = getProducto(productoId)
     const nuevaCantidad=productoModificar.compra-1
     nuevaCantidad > 0?modificarCantidadDelCarrito(productoId,nuevaCantidad):eliminarDelCarrito(productoId)
-    
+    cargarCarrito()
     return
   }
 
@@ -164,6 +164,7 @@ function eliminarDelCarrito(productoId) {
   const index=carrito.findIndex((element) => element.id ===productoId)
   carrito.splice(index,1)
   localStorage.setItem('carrito', JSON.stringify(carrito));
+  actualizarStock(productoId)
   cargarCarrito()
   actualizarTotal()
   
