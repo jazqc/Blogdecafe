@@ -287,13 +287,24 @@ function agregarProducto() {
   }
 }
 
-//TOMAR VALORES PARA AGREGAR AL CARRITO(valido stock y si ya lo tengo en el carrito) ESTOY TRABAJANDO PARA Q FUNCIONE CUANDO ACTUALIZO LA TIENDA YA QUE NO ME LO ESTÁ SUPRIMIENDO DEL CARRITO, PROBAR carrito.includes((element) => element.id ===producto.id) &&
+//TOMAR VALORES PARA AGREGAR AL CARRITO(valido stock y si ya lo tengo en el carrito) 
+
+function chequearCarrito(producto) {
+  if (carrito.find(({ id }) => id === producto.id)) {
+    return true
+  }
+
+}
+
 
 function agregar(producto, cantidad) {
   document.getElementById(`cantidad${producto.id}`).value = 0;
   document.getElementById(`mensaje${producto.id}`).innerText = "";
+  const enCarrito = chequearCarrito(producto)
+  // console.log(enCarrito)
+  
   if (
-    carrito.includes(producto) &&
+    enCarrito == true &&
     producto.stock >= cantidad &&
     producto.stock - cantidad >= 0
   ) {
