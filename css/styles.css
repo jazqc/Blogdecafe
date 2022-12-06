@@ -245,7 +245,6 @@ text-align: center;
 .widget--curso {
     border-bottom: 1px solid var(--gris);
     margin-bottom: 2rem;
-animation: random 2s infinite;
 text-align: center;
 }
 .footer {

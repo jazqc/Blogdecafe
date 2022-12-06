@@ -251,8 +251,6 @@ botonesRest.forEach((botonR) => {
 
 
 
-
-
 // FUNCIONES SUMAR Y RESTAR
 
 function incrementar() {
@@ -300,7 +298,7 @@ function chequearCarrito(producto) {
 function agregar(producto, cantidad) {
   document.getElementById(`cantidad${producto.id}`).value = 0;
   document.getElementById(`mensaje${producto.id}`).innerText = "";
-  const enCarrito = chequearCarrito(producto)
+  const enCarrito = chequearCarrito(producto) //para chequear si el producto está en el carrito y actualizar la cantidad de compra
   // console.log(enCarrito)
   
   if (
@@ -309,8 +307,7 @@ function agregar(producto, cantidad) {
     producto.stock - cantidad >= 0
   ) {
     const index=carrito.findIndex((element) => element.id ===producto.id) 
-    console.log(index)
-    carrito.splice(index,1);
+    carrito.splice(index,1); //lo saco del carrito
     sumar(producto, cantidad); //si ya lo tengo en el carrito, actualizo la cantidad
   } else {
     if (producto.stock >= cantidad && producto.stock - cantidad >= 0) {

@@ -148,7 +148,7 @@ function modificarCantidadDelCarrito(productoId,nuevaCantidad) {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     cargarCarrito()
     actualizarTotal()
-    actualizarStock(productoId,nuevaCantidad)
+    actualizarStock(productoId,1)
     
     
   }
@@ -157,18 +157,16 @@ function modificarCantidadDelCarrito(productoId,nuevaCantidad) {
 
 function eliminarProducto() {
   const productoId=this.getAttribute('data-producto')
-  const cantCompra = Number(0)
-  actualizarStock(productoId,cantCompra)
+  actualizarStock(productoId,0)
   eliminarDelCarrito(productoId)
-  
- 
 }
 
 
 function eliminarDelCarrito(productoId) {
   const index=carrito.findIndex((element) => element.id ===productoId)
-  console.log(index)
+  // console.log(index)
   const cantCompra = Number(carrito[index].compra)
+  console.log(cantCompra)
   carrito.splice(index,1)
   localStorage.setItem('carrito', JSON.stringify(carrito));
   if (carrito.length ===0) {
@@ -186,7 +184,7 @@ function actualizarStock (productoId,cantCompra){
   const index = productos.findIndex((element) => element.id === productoId)
   if(productos?.[index]){
     productos[index].stock += +cantCompra
-    productos[index].compra = cantCompra
+    productos[index].compra += -cantCompra
     localStorage.setItem('productos', JSON.stringify(productos));
   }
 }
