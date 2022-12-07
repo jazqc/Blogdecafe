@@ -98,6 +98,10 @@ document.getElementById("total").innerText = `Total a pagar $ ${totalCarrito}`
 // VACIAR
 const vaciarCarrito = document.getElementById("vaciar")
 vaciarCarrito.addEventListener("click", reiniciar)
+//TERMINAR COMPRA
+const irPagar = document.getElementById("pagar")
+irPagar.addEventListener("click", pagar)
+
 
 function reiniciar() {
     totalCarrito = 0;
@@ -110,13 +114,28 @@ function reiniciar() {
     Swal.fire({
       text: 'Tu carrito está vacío',
       icon: 'success',
-      timer: 1700,
-    
+      timer: 1900,
+      className: ".swal",
+  
+      
     })
 }
 
+function pagar() {
+  if (carrito.length>0) {
+    Swal.fire({
+      text: 'Se lo direccionará a la página de pago',
+      icon: 'info',
+      timer: 2500,
+      className: ".swal"
+  })
+}
+else {
+  reiniciar()
+}
 
-//Busco el producto
+}
+//Busco el producto en  mi carrito
 
 function getProducto(productoId) {
   const productoModificar = carrito.find(producto => producto.id === productoId)
@@ -139,21 +158,20 @@ function modificarProducto(productoId) {
   }
 
 
-  // IMPORTANTE, ME FALTA RESOLVER LA FUNCION PARA QUE CUANDO QUEDE 0 EN EL CARRITO EN PRODUCTOS TMB PORQUE ME QUEDA EN 1
 function modificarCantidadDelCarrito(productoId,nuevaCantidad) {     
-  const index=carrito.findIndex((element) => element.id ===productoId)
+  const index=carritoIndex(productoId)
   if(carrito?.[index]){
     carrito[index].compra=nuevaCantidad
     carrito[index].stock++
     localStorage.setItem('carrito', JSON.stringify(carrito));
     cargarCarrito()
     actualizarTotal()
-    actualizarStock(productoId,1)
-    
+    actualizarStock(productoId,1)   
     
   }
    
 }
+//Elimino del carrito y actualizo el stock y productos
 
 function eliminarProducto() {
   const productoId=this.getAttribute('data-producto')
@@ -163,10 +181,10 @@ function eliminarProducto() {
 
 
 function eliminarDelCarrito(productoId) {
-  const index=carrito.findIndex((element) => element.id ===productoId)
+  const index=carritoIndex(productoId)
   // console.log(index)
   const cantCompra = Number(carrito[index].compra)
-  console.log(cantCompra)
+  // console.log(cantCompra)
   carrito.splice(index,1)
   localStorage.setItem('carrito', JSON.stringify(carrito));
   if (carrito.length ===0) {
@@ -179,7 +197,7 @@ function eliminarDelCarrito(productoId) {
   actualizarTotal()
 }
 
-
+//actualizo mi base de productos
 function actualizarStock (productoId,cantCompra){
   const index = productos.findIndex((element) => element.id === productoId)
   if(productos?.[index]){
@@ -189,3 +207,8 @@ function actualizarStock (productoId,cantCompra){
   }
 }
 
+//buscar index
+function carritoIndex(productoId) {
+  const indexProducto = carrito.findIndex((element) => element.id === productoId)
+  return indexProducto
+}

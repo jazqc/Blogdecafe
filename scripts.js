@@ -11,6 +11,7 @@ let numeroCarrito = carrito.length
 let contenedorCarrito = document.getElementById("cart_menu_num")
 contenedorCarrito.innerText = numeroCarrito.toString()
 
+
 //*************************************************************
 //*********************TIENDA*****************************
 
@@ -31,7 +32,9 @@ class Producto {
     return this.stock;
   }
   oferta(porcentaje) {
+    let precioLista = this.precio
     this.precio = this.precio - (this.precio / 100) * porcentaje;
+    console.log(precioLista)
     return this.precio;
   }
 }
@@ -126,8 +129,9 @@ const molinillo = new Producto(
   2,
   0
 );
-const termo1 = new Producto("009", "img/termo1.png", "Termo", "Wilford&Sons","Portatil", 10000, 4, 0)
 
+const termo1 = new Producto("009", "img/termo1.png", "Termo", "Wilford&Sons","Portatil", 10000, 4, 0)
+cafe1.oferta(10)
 //esto de traerlo del localstorage lo hago solamento porque estoy emulando un endpoint para que me funcione la validación de stock cuando reinicio la pagina, de otra forma lo que pasa es que se me reinicia el stock (por ejemplo si los traigo por fetch del json). Se que no es la manera pero fue l solución que le encontré para que sea más real con las herramientas q tenemos 
 const BDD = JSON.parse(localStorage.getItem("productos")) || [
   cafe1,
@@ -183,7 +187,7 @@ productos.forEach((producto) => {
   content4.className = "col-12 col-md-4";
   content4.innerHTML = `
   <h2>$${producto.precio}</h2>`;
-
+  
   let quantity = document.createElement("div");
   let botonRest = document.createElement("button");
   botonRest.innerHTML = `
@@ -224,7 +228,6 @@ productos.forEach((producto) => {
 
   content4.append(quantity, comprar, mensajeStock);
   content.append(content2, content3, content4);
-  // content.append(content1)
   contenedor.append(content);
 });
 
@@ -287,8 +290,9 @@ function agregarProducto() {
 
 //TOMAR VALORES PARA AGREGAR AL CARRITO(valido stock y si ya lo tengo en el carrito) 
 
+
 function chequearCarrito(producto) {
-  if (carrito.find(({ id }) => id === producto.id)) {
+  if (carrito.find(({ id }) => id === producto.id)) { 
     return true
   }
 
@@ -363,7 +367,6 @@ function getQuote() {
   
   fetch('https://quotes-villa.p.rapidapi.com/quotes/art', options)
     .then(response => response.json())
-    // .then(data => console.log(data))
     .then(data => contenedorFrase.innerHTML = `<p class="typed-out"">${data[Math.floor(Math.random() * data.length)].text}</p>`)
     .catch(err => console.error(err))
 

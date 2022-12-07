@@ -412,6 +412,10 @@ div.nombre-producto h3 {
 }
 /* CARRITO */
 
+.swal2{
+font-size: 2rem;
+}
+
 .encabezado h3{
     text-align: center;
     font-size: 2.1rem;
@@ -425,7 +429,9 @@ div.nombre-producto h3 {
     width: fit-content;
     margin: none;
 }
-
+.boton-pagar {
+    background-color: #bf69b1;
+}
 
 .productoEnCarrito h2 {
     text-align: center;
