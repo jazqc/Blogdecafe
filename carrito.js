@@ -98,7 +98,8 @@ document.getElementById("total").innerText = `Total a pagar $ ${totalCarrito}`
 // VACIAR
 const vaciarCarrito = document.getElementById("vaciar")
 vaciarCarrito.addEventListener("click", reiniciar)
-//TERMINAR COMPRA
+
+//TERMINAR COMPRA: lo puse por estética nomás
 const irPagar = document.getElementById("pagar")
 irPagar.addEventListener("click", pagar)
 
@@ -112,10 +113,11 @@ function reiniciar() {
     actualizarTotal()
 
     Swal.fire({
-      text: 'Tu carrito está vacío',
+      html:`<b>Su carrito está vacío</b>`,
       icon: 'success',
       timer: 1900,
       className: ".swal",
+      
   
       
     })
@@ -124,10 +126,10 @@ function reiniciar() {
 function pagar() {
   if (carrito.length>0) {
     Swal.fire({
-      text: 'Se lo direccionará a la página de pago',
+      html:`<b>Se lo direccionará a la página de pago</b>`,
       icon: 'info',
       timer: 2500,
-      className: ".swal"
+      className: ".swal",
   })
 }
 else {
@@ -135,6 +137,8 @@ else {
 }
 
 }
+
+
 //Busco el producto en  mi carrito
 
 function getProducto(productoId) {
@@ -171,6 +175,7 @@ function modificarCantidadDelCarrito(productoId,nuevaCantidad) {
   }
    
 }
+
 //Elimino del carrito y actualizo el stock y productos
 
 function eliminarProducto() {

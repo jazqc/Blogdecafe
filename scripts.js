@@ -44,7 +44,7 @@ const cafe1 = new Producto(
   "./img/cafe1.png",
   "Juan Valdez Premium",
   "Juan Valdez",
-  "básico",
+  "Básico",
   2500,
   20,
   0
@@ -64,7 +64,7 @@ const cafe3 = new Producto(
   "img/cafe3.png",
   "Giulis-Café de finca",
   "Giulis",
-  "intenso",
+  "Intenso",
   4000,
   5,
   0
@@ -84,7 +84,7 @@ const cafe5 = new Producto(
   "img/cafe5.png",
   "Café Quindio Gourmet",
   "Quindio",
-  "100% colombiano",
+  "100% Colombiano",
   3500,
   5,
   0
@@ -114,7 +114,7 @@ const cafetera2 = new Producto(
   "img/cafeteraEmbolo.png",
   "Cafetera de Embolo",
   "Bodum",
-  "prensa francesa",
+  "Prensa Francesa",
   20000,
   3,
   0
@@ -124,15 +124,15 @@ const molinillo = new Producto(
   "img/Molinillo.png",
   "Molinillo",
   "Peugeot",
-  "estilo antiguo",
+  "Estilo Antiguo",
   15000,
   2,
   0
 );
 
 const termo1 = new Producto("009", "img/termo1.png", "Termo", "Wilford&Sons","Portatil", 10000, 4, 0)
-cafe1.oferta(10)
-//esto de traerlo del localstorage lo hago solamento porque estoy emulando un endpoint para que me funcione la validación de stock cuando reinicio la pagina, de otra forma lo que pasa es que se me reinicia el stock (por ejemplo si los traigo por fetch del json). Se que no es la manera pero fue l solución que le encontré para que sea más real con las herramientas q tenemos 
+cafe1.oferta(10)  //solo para aplicar un método
+//esto de traerlo del localstorage lo hago solamento porque estoy emulando un endpoint para que me funcione la validación de stock cuando reinicio la pagina, de otra forma lo que pasa es que se me reinicia el stock (por ejemplo si los traigo por fetch del json). Se que no es la manera pero fue la solución que le encontré para que sea más real con las herramientas q tenemos 
 const BDD = JSON.parse(localStorage.getItem("productos")) || [
   cafe1,
   cafe2,
@@ -311,7 +311,7 @@ function agregar(producto, cantidad) {
     producto.stock - cantidad >= 0
   ) {
     const index=carrito.findIndex((element) => element.id ===producto.id) 
-    carrito.splice(index,1); //lo saco del carrito
+    carrito.splice(index,1); 
     sumar(producto, cantidad); //si ya lo tengo en el carrito, actualizo la cantidad
   } else {
     if (producto.stock >= cantidad && producto.stock - cantidad >= 0) {

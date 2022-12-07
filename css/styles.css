@@ -412,7 +412,7 @@ div.nombre-producto h3 {
 }
 /* CARRITO */
 
-.swal2{
+.swal2-shown b{
 font-size: 2rem;
 }
 
@@ -428,6 +428,7 @@ font-size: 2rem;
 .boton-vaciar, .boton--terciario{
     width: fit-content;
     margin: none;
+
 }
 .boton-pagar {
     background-color: #bf69b1;
