@@ -135,11 +135,17 @@ function pagar() {
 else {
   reiniciar()
 }
+totalCarrito = 0;
+localStorage.removeItem('carrito');
+localStorage.removeItem('productos')
+
+cargarCarrito()   
+actualizarTotal()
 
 }
 
 
-//Busco el producto en  mi carrito
+//BUSCO EL PRODUCTO EN MI CARRITO
 
 function getProducto(productoId) {
   const productoModificar = carrito.find(producto => producto.id === productoId)
